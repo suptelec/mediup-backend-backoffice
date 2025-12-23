@@ -9,6 +9,17 @@
   <ItemGroup>
     <ProjectReference Include="..\MediUp.Domain\MediUp.Domain.csproj" />
     <PackageReference Include="AutoMapper" Version="14.0.0" />
+	<PackageReference Include="Microsoft.AspNetCore.OData" Version="9.4.1" />
+	<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.10" />
+	<PackageReference Include="MimeKit" Version="4.14.0" />
+	<PackageReference Include="AutoMapper" Version="14.0.0" />
+	<PackageReference Include="AutoMapper.AspNetCore.OData.EFCore" Version="7.0.4" />
+	<PackageReference Include="AutoMapper.Collection.EntityFrameworkCore" Version="11.0.0" />
+	<PackageReference Include="FluentValidation" Version="12.1.0" />
+	<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.0" />
+	<PackageReference Include="Handlebars.Net" Version="2.1.6" />
+	<PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.95" />
+	<PackageReference Include="MailKit" Version="4.14.1" />
   </ItemGroup>
 
 </Project>
