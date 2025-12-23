@@ -1,0 +1,62 @@
+# Archivos de Visual Studio
+.vs/
+*.suo
+*.user
+*.userprefs
+*.sln.docstates
+
+# Archivos de build
+bin/
+obj/
+
+# Archivos de configuración de NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+*.cache
+*.tmp
+
+
+# Archivos de logs
+*.log
+
+# Archivos de entorno
+*.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Archivos de configuración de Rider
+.idea/
+
+# Archivos de prueba
+TestResults/
+*.trx
+
+# Otros archivos innecesarios
+*.db
+*.pdb
+*.mdb
+*.exe
+*.dll
+*.app
+*.exe
+*.war
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
+# Archivos de publicaci�n
+publish/
+.vscode/launch.json
+/CashOn.FrontOffice/CashOn.FrontOffice.xml
+coverage.cobertura.xml
+**/coverage.cobertura.xml
