@@ -2,8 +2,12 @@
 using MediUp.Domain.Dtos;
 using MediUp.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MediUp.Backoffice.Controllers;
 
@@ -52,6 +56,32 @@ public class ElectriCompanyController(ILoggerFactory loggerFactory, IElectriComp
         else
         {
             Logger.LogWarning("Failed to create electric company with tax id {TaxId}. Error: {Error}", request.TaxId, result.Message);
+        }
+
+        return HandleResult(result);
+    }
+
+    /// <summary>
+    /// Retrieves all electric companies.
+    /// </summary>
+    /// <returns>A <see cref="ResultDto{T}"/> containing the list of electric companies.</returns>
+    [HttpGet]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(ResultDto<IEnumerable<ElectriCompanyResponse>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResultDto<IEnumerable<ElectriCompanyResponse>>), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        Logger.LogInformation("Request received to retrieve all electric companies.");
+
+        var result = await _electriCompanyService.GetAllAsync(cancellationToken);
+
+        if (result.Succeed)
+        {
+            Logger.LogInformation("Retrieved {Count} electric companies successfully.", result.Result?.Count() ?? 0);
+        }
+        else
+        {
+            Logger.LogWarning("Failed to retrieve electric companies. Error: {Error}", result.Message);
         }
 
         return HandleResult(result);

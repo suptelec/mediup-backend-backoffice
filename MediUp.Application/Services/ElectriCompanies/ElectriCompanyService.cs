@@ -4,6 +4,10 @@ using MediUp.Domain.Entities;
 using MediUp.Domain.Enums;
 using MediUp.Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace MediUp.Application.Services.ElectriCompanies;
@@ -45,6 +49,24 @@ public class ElectriCompanyService(IAppDataService appDataService, ILogger<Elect
         {
             _logger.LogError(exception, "Unexpected error while creating electric company {Name} ({TaxId}).", request.Name, request.TaxId);
             return Result.Fail<ElectriCompany>(AppMessageType.UnknownError, "An unexpected error occurred while creating the electric company.");
+        }
+    }
+
+    public async Task<ResultDto<IEnumerable<ElectriCompanyResponse>>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var electriCompanies = await _appDataService.ElectriCompany.GetAllAsync();
+            var response = electriCompanies.Select(_mapper.Map<ElectriCompanyResponse>).ToList();
+
+            _logger.LogInformation("Retrieved {Count} electric companies.", response.Count);
+
+            return Result.Success<IEnumerable<ElectriCompanyResponse>>(response);
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Unexpected error while retrieving electric companies.");
+            return Result.Fail<IEnumerable<ElectriCompanyResponse>>(AppMessageType.UnknownError, "An unexpected error occurred while retrieving the electric companies.");
         }
     }
 }
