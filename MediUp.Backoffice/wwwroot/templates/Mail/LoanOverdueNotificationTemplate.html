@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Presto - Tu Préstamo {{loanIdentifier}} requiere tu atención</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF;
+        }
+
+        .wrapper {
+            width: 100%;
+            background-color: #FFF;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            background-color: #FAF9F9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .inner {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            color: #FA2355;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            font-family: 'Poppins', Arial, sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: center;
+            color: #292929;
+        }
+
+        .content a {
+            color: #FA2355;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td align="center">
+                <table class="container" width="750" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="inner">
+                            <div class="logo"><img src="cid:logoCID" alt="Logo" style="width:200px;" /></div>
+
+                            <div class="content">
+                                <p style="padding-bottom: 10px;">Estimado/a  <strong style="color:#FA2355;">{{customerName}}</strong>,</p>
+
+                                <p style="padding-bottom: 10px;">Te escribimos en relación a tu préstamo con ID <strong style="color:#FA2355;">{{loanIdentifier}}</strong>, el cual venció el pasado <strong style="color:#FA2355;">{{dueDate}}</strong> y actualmente presenta un saldo pendiente de pago.</p>
+
+                                <p style="padding-bottom: 10px;">Entendemos que la gestión de tus finanzas puede ser compleja, y queremos recordarte la importancia de regularizar tu situación para evitar cargos adicionales y el impacto en tu historial crediticio. Tu saldo pendiente a día de hoy, <strong style="color:#FA2355;">{{currentDate}}</strong>, es de <strong style="color:#FA2355;">{{amountDue}}</strong>.</p>
+
+                                <table align="center" style="margin: 0 auto; text-align: center;">
+                                    <tr>
+                                        <td style="padding-bottom: 3px;">
+                                            Para tu comodidad y para que puedas gestionar tu préstamo de la forma que mejor se adapte a ti, hemos centralizado todas las opciones en tu Área de Cliente desde donde podrás:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-bottom: 3px;">
+                                            &#8226; Realizar el pago completo de forma inmediata.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-bottom: 3px;">
+                                            &#8226; Gestionar o afiliar nuevas tarjetas bancarias. Si necesitas cambiar o añadir una tarjeta para futuros cobros automáticos o pagos manuales.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            &#8226; Explorar otros métodos de pago disponibles.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Accede a tu Área de Cliente aquí: <a href="{{loginUrl}}" >Ir a mi Área de Cliente y Pagar</a>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <p style="padding-top: 5px; padding-bottom:10px">
+                                    Si ya has realizado el pago, por favor, ignora este mensaje.<br>
+                                    Agradecemos tu pronta atención a este asunto.
+                                </p>
+                                <div>
+                                    <p>Saludos,<br>El equipo de Presto</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

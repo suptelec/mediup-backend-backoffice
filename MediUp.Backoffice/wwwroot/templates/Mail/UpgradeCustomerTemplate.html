@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF;
+        }
+
+        .logo {
+            font-size: 32px;
+            color: #FA2355;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            font-family: 'Poppins', Arial, sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: center;
+            color: #292929;
+            background-color: #FAF9F9;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .content a {
+            color: #FA2355;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 40px 0;">
+<div class="content">
+    <div class="logo"><img src="cid:logoCID" alt="Logo" style="width:200px;"/></div>
+    <div>
+        <p>Hola <strong style="color:#FA2355;">{{userName}}</strong>,</p>
+        <p>Gracias a tu excelente historial de pago, has ascendido de Categoría en nuestro sistema.</p>
+        <p>Ahora tu límite de crédito ha aumentado a <strong style="color:#FA2355;">{{maxAmount}}</strong>.</p>
+        <p>
+            Entra y solicita tu nuevo préstamo
+            <a href="{{loginUrl}}">aquí</a>.
+        </p>
+        <div style="margin-top: 40px">
+            Saludos,<br>
+            El equipo de Presto.
+        </div>
+    </div>
+</div>
+</body>
+</html>
