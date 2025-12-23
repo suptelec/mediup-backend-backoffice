@@ -22,5 +22,11 @@
             It also keeps the controller thin by delegating validation and persistence to the service layer.
             </remarks>
         </member>
+        <member name="M:MediUp.Backoffice.Controllers.ElectriCompanyController.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all electric companies.
+            </summary>
+            <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> containing the list of electric companies.</returns>
+        </member>
     </members>
 </doc>
