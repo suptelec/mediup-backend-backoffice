@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using MediUp.Domain.Dtos;
+using MediUp.Domain.Entities;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MediUp.Application.Services.ElectriCompanies;
 public interface IElectriCompanyService
 {
+    Task<ResultDto<ElectriCompany>> CreateAsync(CreateElectriCompanyRequest request, CancellationToken cancellationToken = default);
 }
