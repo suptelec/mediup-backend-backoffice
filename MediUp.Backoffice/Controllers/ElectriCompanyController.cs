@@ -2,12 +2,8 @@
 using MediUp.Domain.Dtos;
 using MediUp.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mime;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MediUp.Backoffice.Controllers;
 

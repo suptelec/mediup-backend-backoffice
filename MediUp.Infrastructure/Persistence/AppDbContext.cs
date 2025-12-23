@@ -18,7 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     #endregion
 
     #region Properties
-    public DbSet<ElectriCompany> ElectriCompanies => Set<ElectriCompany>();
+    public DbSet<ElectriCompany> ElectriCompany => Set<ElectriCompany>();
     
 
     #endregion

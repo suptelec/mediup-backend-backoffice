@@ -26,7 +26,7 @@ public static class Seed
             }
         };
 
-        context.ElectriCompanies.AddRange(countries);
+        context.ElectriCompany.AddRange(countries);
 
       
         await context.SaveChangesAsync();
