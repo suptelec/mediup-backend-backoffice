@@ -2,13 +2,15 @@
 using MediUp.Domain.Entities;
 using MediUp.Domain.Enums;
 using MediUp.Domain.Interfaces.Services;
+using AutoMapper;
 using Microsoft.Extensions.Logging;
 
 namespace MediUp.Application.Services.ElectriCompanies;
-public class ElectriCompanyService(IAppDataService appDataService, ILogger<ElectriCompanyService> logger) : IElectriCompanyService
+public class ElectriCompanyService(IAppDataService appDataService, ILogger<ElectriCompanyService> logger, IMapper mapper) : IElectriCompanyService
 {
     private readonly IAppDataService _appDataService = appDataService;
     private readonly ILogger<ElectriCompanyService> _logger = logger;
+    private readonly IMapper _mapper = mapper;
 
     public async Task<ResultDto<ElectriCompany>> CreateAsync(CreateElectriCompanyRequest request, CancellationToken cancellationToken = default)
     {
@@ -26,20 +28,10 @@ public class ElectriCompanyService(IAppDataService appDataService, ILogger<Elect
 
         try
         {
-            var electriCompany = new ElectriCompany
-            {
-                Name = request.Name.Trim(),
-                TaxId = request.TaxId.Trim(),
-                Address = request.Address,
-                City = request.City,
-                State = request.State,
-                Country = request.Country,
-                PostalCode = request.PostalCode,
-                ContactEmail = request.ContactEmail,
-                ContactPhone = request.ContactPhone,
-                CreatedAt = DateTime.UtcNow,
-                CreatedBy = string.IsNullOrWhiteSpace(request.CreatedBy) ? "backoffice" : request.CreatedBy!
-            };
+            var electriCompany = _mapper.Map<ElectriCompany>(request);
+
+            electriCompany.CreatedAt = DateTime.UtcNow;
+            electriCompany.CreatedBy = string.IsNullOrWhiteSpace(electriCompany.CreatedBy) ? "backoffice" : electriCompany.CreatedBy;
 
             _appDataService.ElectriCompany.Add(electriCompany);
             await _appDataService.SaveChangesAsync();

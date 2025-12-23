@@ -1,4 +1,5 @@
 using MediUp.Application.Services.ElectriCompanies;
+using MediUp.Application.Mapping;
 using MediUp.Domain.Interfaces.Repositories;
 using MediUp.Domain.Interfaces.Services;
 using MediUp.Infrastructure.Persistence;
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IElectriCompanyRepository, ElectriCompanyRepository>();
 builder.Services.AddScoped<IAppDataService, AppDataService>();
 builder.Services.AddScoped<IElectriCompanyService, ElectriCompanyService>();
+builder.Services.AddAutoMapper(typeof(ElectriCompanyProfile));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
