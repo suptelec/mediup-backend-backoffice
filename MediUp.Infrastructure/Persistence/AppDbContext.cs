@@ -1,15 +1,9 @@
-﻿using MediUp.Infrastructure.Persistence.Entities;
+﻿using MediUp.Domain.Entities;
+using MediUp.Infrastructure.Persistence.Entities;
 using MediUp.Infrastructure.Persistence.EntitiesConfiguration;
 using MediUp.Infrastructure.Smarter.EntityFramework.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MediUp.Infrastructure.Persistence;
 public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbContext> logger)
@@ -24,7 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     #endregion
 
     #region Properties
-    //public DbSet<GlobalLoanConfig> GlobalLoanConfig => Set<GlobalLoanConfig>();
+    public DbSet<ElectriCompany> ElectriCompanies => Set<ElectriCompany>();
     
 
     #endregion
