@@ -16,7 +16,7 @@ public class CreateUserRequestDto
     public string LastName { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public string? PhoneNumber { get; set; }
-    public UserType Type => UserType.FrontOffice;
+    public UserType Type { get; set; }
     public string IdentityDocument { get; set; } = string.Empty;
 
 }
