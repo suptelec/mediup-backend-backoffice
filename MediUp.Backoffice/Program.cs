@@ -8,7 +8,6 @@ using MediUp.Domain.Dtos.Common;
 using MediUp.Domain.Interfaces;
 using MediUp.Domain.Models;
 using MediUp.Infrastructure;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.OData;
 using Serilog;
@@ -78,7 +77,7 @@ try
     builder.Services.AddAppInfrastructure(builder.Configuration);
     builder.Services.AddApplication(new ValidationSettings(settings));
     builder.Services.AddRepos();
-    builder.Services.AddSwagger(swaggerSettings.Authority, swaggerSettings.SwaggerScopes, "CashOn Backoffice", "CashOn.Backoffice.xml");
+    builder.Services.AddSwagger(swaggerSettings.Authority, swaggerSettings.SwaggerScopes, "CashOn Backoffice", "MediUp.Backoffice.xml");
     builder.Services.AddHealthChecks();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddAuthHandlers();
