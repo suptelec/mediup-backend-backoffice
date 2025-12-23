@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MediUp.Application.Interfaces;
 using MediUp.Application.Validation;
 using MediUp.Domain.Models;
 using Microsoft.Extensions.Configuration;
