@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediUp.Backoffice</name>
+    </assembly>
+    <members>
+        <member name="M:MediUp.Backoffice.Configuration.ODataQueryOptionsFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Applies the OData query options to the Swagger operation.
+            </summary>
+            <param name="operation">The Swagger operation.</param>
+            <param name="context">The operation filter context.</param>
+        </member>
+        <member name="M:MediUp.Backoffice.Controllers.ElectriCompanyController.CreateAsync(MediUp.Domain.Dtos.CreateElectriCompanyRequest,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new electric company by delegating work to the service and repository layer.
+            </summary>
+            <param name="request">Payload containing the electric company details.</param>
+            <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> indicating the operation result.</returns>
+            <remarks>
+            This endpoint logs the flow so we can trace the request through the controller.
+            It also keeps the controller thin by delegating validation and persistence to the service layer.
+            </remarks>
+        </member>
+    </members>
+</doc>

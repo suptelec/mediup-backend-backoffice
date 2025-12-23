@@ -1,22 +1,17 @@
 using Logging;
-using MediUp.Application.Mapping;
-using MediUp.Application.Services.ElectriCompanies;
+using MediUp.Application;
 using MediUp.Backoffice.Controllers;
+using MediUp.Backoffice.Extensions;
 using MediUp.Backoffice.Middleware;
+using MediUp.Backoffice.Models;
 using MediUp.Domain.Dtos.Common;
-using MediUp.Domain.Interfaces.Repositories;
-using MediUp.Domain.Interfaces.Services;
+using MediUp.Domain.Interfaces;
 using MediUp.Domain.Models;
-using MediUp.Domain.Utils;
-using MediUp.Infrastructure.Persistence;
-using MediUp.Infrastructure.Persistence.Repositories;
-using Microsoft.AspNetCore.Builder.Extensions;
+using MediUp.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.OData;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
-using System.Drawing;
 
 bool logToFiles = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") != "true";
 string? logsPath = logToFiles ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs") : null;
@@ -81,31 +76,21 @@ try
     builder.Services.AddHttpContextAccessor();
     builder.Services.AddAppSettings();
     builder.Services.AddAppInfrastructure(builder.Configuration);
-    builder.Services.AddApplication(new ValidationSettings(settings)).AddAwsOptions(builder.Configuration);
+    builder.Services.AddApplication(new ValidationSettings(settings));
     builder.Services.AddRepos();
     builder.Services.AddSwagger(swaggerSettings.Authority, swaggerSettings.SwaggerScopes, "CashOn Backoffice", "CashOn.Backoffice.xml");
     builder.Services.AddHealthChecks();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddAuthHandlers();
     builder.Services.AddTransient<ICurrentLoggedUser, CurrentLoggedUser>();
-    builder.Services.AddAppLocalizations();
     builder.Services.AddMemoryCache();
 
     builder.Services.AddSingleton(settings);
-    builder.Services.AddAwsService(builder.Configuration);
-    builder.Services.AddCustomerService()
-                    .AddLoanService()
-                    .AddBillService()
-                    .AddCsvExportService();
+    builder.Services.AddElectriCompanyService()
+        ;
 
-    builder.Services.AddCatalogService()
-                    .AddCountryService()
-                    .AddProvinceService()
-                    .AddCityService()
-                    .AddDashboardService()
-                    .AddGlobalLoanConfigService();
 
-    builder.Services.AddSharedService(settings, appAssets);
+
 
     builder.Services.AddIdentityApis(authServerSettings);
 
@@ -124,7 +109,8 @@ try
 
     builder.Host.ConfigureHostBuilder();
 
-    app.UseSwagger(swaggerSettings.SwaggerClientId, swaggerSettings.SwaggerClientSecret, "CashOn Bo");
+
+    app.UseSwagger(swaggerSettings.SwaggerClientId, swaggerSettings.SwaggerClientSecret, "MediUp Bo");
     //app.UseHttpsRedirection();
     var forwardedHeaderOptions = new ForwardedHeadersOptions
     {
