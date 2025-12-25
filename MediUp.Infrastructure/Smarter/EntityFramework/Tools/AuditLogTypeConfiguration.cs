@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 namespace MediUp.Infrastructure.Smarter.EntityFramework.Tools;
 public class AuditLogTypeConfiguration : AuditLogTypeConfiguration<AuditLog>
 {
-    public AuditLogTypeConfiguration()
-    {
-    }
+   
 
     public AuditLogTypeConfiguration(string tableName, string tableScheme)
         : base(tableName, tableScheme)

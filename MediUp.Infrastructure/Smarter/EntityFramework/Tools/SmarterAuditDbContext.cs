@@ -1,4 +1,5 @@
 ﻿using Audit.EntityFramework;
+using MediUp.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
@@ -40,7 +41,7 @@ public class SmarterAuditDbContext<TAuditLog> : AuditDbContext where TAuditLog :
         modelBuilder.WithAudit<TAuditLog>(Logger, _config);
         if (typeof(TAuditLog) == typeof(AuditLog))
         {
-            modelBuilder.ApplyConfiguration(new AuditLogTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AuditLogTypeConfiguration("AuditLog", DbConstants.Scheme));
         }
     }
 

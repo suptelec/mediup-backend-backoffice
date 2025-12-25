@@ -26,6 +26,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.AutoIncrementColumns();
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         modelBuilder.HasDefaultSchema(DbConstants.Scheme);
         modelBuilder.ApplyConfiguration(new CustomAuditLogTypeConfiguration(nameof(AuditLog), DbConstants.Scheme));

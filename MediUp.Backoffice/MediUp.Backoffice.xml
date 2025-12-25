@@ -28,5 +28,10 @@
             </summary>
             <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> containing the list of electric companies.</returns>
         </member>
+        <member name="M:MediUp.Backoffice.Controllers.IdentityUsersController.CreateUserAsync(MediUp.Domain.Dtos.Identity.User.Requests.CreateUserRequestDto)">
+            <summary>
+            Creates a user in the identity service.
+            </summary>
+        </member>
     </members>
 </doc>
