@@ -29,7 +29,7 @@ public class AuditInterceptor(IServiceProvider serviceProvider) : ISaveChangesIn
 
         var now = DateTime.Now;
         var currentUser = serviceProvider.GetRequiredService<ICurrentLoggedUser>();
-        var currentUserName = currentUser?.UserName ?? "System";
+        var currentUserName = currentUser?.UserName ?? "Backoffice System";
 
         var entries = context.ChangeTracker.Entries<IBaseEntity>()
             .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);

@@ -33,17 +33,16 @@ public class ElectriCompanyService(IAppDataService appDataService, ILogger<Elect
 
         try
         {
-            var electriCompany = _mapper.Map<ElectriCompany>(request);
+            var entity = _mapper.Map<ElectriCompany>(request);
 
-            electriCompany.CreatedAt = DateTime.UtcNow;
-            electriCompany.CreatedBy = string.IsNullOrWhiteSpace(electriCompany.CreatedBy) ? "backoffice" : electriCompany.CreatedBy;
-
-            _appDataService.ElectriCompany.Add(electriCompany);
+            _appDataService.ElectriCompany.Add(entity);
             await _appDataService.SaveChangesAsync();
 
-            _logger.LogInformation("Electric company {Name} ({TaxId}) created successfully with id {Id}.", electriCompany.Name, electriCompany.TaxId, electriCompany.Id);
+            var response = mapper.Map<ElectriCompany>(entity);
 
-            return Result.Success(electriCompany);
+            _logger.LogInformation("Electric company {Name} ({TaxId}) created successfully with id {Id}.", entity.Name, entity.TaxId, entity.Id);
+
+            return Result.Success(response);
         }
         catch (Exception exception)
         {

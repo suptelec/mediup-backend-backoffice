@@ -21,13 +21,7 @@ public class AuditLogTypeConfiguration<TAuditLog> : IEntityTypeConfiguration<TAu
 {
     private readonly string _tableName;
 
-    private readonly string _tableScheme;
-
-    public AuditLogTypeConfiguration()
-    {
-        _tableName = "AuditLog";
-        _tableScheme = "dbo";
-    }
+    private readonly string _tableScheme;    
 
     public AuditLogTypeConfiguration(string tableName, string tableScheme)
     {

@@ -42,8 +42,8 @@ public abstract class BaseAuditLog
             IgnoreProperties(tableName, list2.ToArray());
         }
 
-        OldData = ((OldValues.Count == 0) ? null : JsonSerializer.Serialize(OldValues));
-        NewData = ((NewValues.Count == 0) ? null : JsonSerializer.Serialize(NewValues));
+        OldData = JsonSerializer.Serialize(OldValues);
+        NewData = JsonSerializer.Serialize(NewValues);
         string text2 = ((entry.Action == "Insert") ? config.CreatedBy : config.UpdatedBy);
         AuditUser = ((NewValues.Keys.Contains(text2) && NewValues[text2] != null) ? NewValues[text2].ToString() : string.Empty);
         config.SetCustomProperties?.Invoke(this, entry.Entity ?? entry.GetEntry()?.Entity);
