@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace MediUp.Domain.Interfaces.Services;
 public interface IAppDataService : IDisposable
 {
+    IAgentRepository Agent { get; }
     IElectriCompanyRepository ElectriCompany { get; }
   
 

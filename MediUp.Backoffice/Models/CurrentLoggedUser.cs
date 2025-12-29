@@ -8,6 +8,7 @@ namespace MediUp.Backoffice.Models;
 public class CurrentLoggedUser : ICurrentLoggedUser
 {
     public long Id { get; }
+    public long ElectricCompanyId { get; }
     public string UserName { get; }
     public string Email { get; }
     public string FullName { get; }
@@ -17,6 +18,7 @@ public class CurrentLoggedUser : ICurrentLoggedUser
     {
         var httpContext = context.HttpContext;
         Id = long.Parse(GetClaimValue(httpContext, JwtRegisteredClaimNames.NameId) ?? "0");
+        ElectricCompanyId = long.Parse(GetClaimValue(httpContext, AppConstants.ElectricCompanyIdClaim) ?? "0");
         UserName = GetClaimValue(httpContext, JwtRegisteredClaimNames.Sub)
                    ?? GetClaimValueOrNa(httpContext, JwtRegisteredClaimNames.UniqueName);
         Email = GetClaimValueOrNa(httpContext, JwtRegisteredClaimNames.Email);

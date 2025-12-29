@@ -15,6 +15,7 @@ public static class AppConstants
     public const string LoanPermissionsClaim = "mup.loan.permissions";
     public const string GlobalPermissionsClaim = "mup.global.permissions";
     public const string BillBatchPermissionClaim = "mup.billbatch.permissions";
+    public const string ElectricCompanyIdClaim = "mup.electriccompany.id";
     public const string CacheKey = "dashboard_sumary_cache";
 
     public const string LoanOverdueNotification = "Tu préstamo {0} requiere tu atención";

@@ -8,6 +8,7 @@ namespace MediUp.Domain.Interfaces;
 public interface ICurrentLoggedUser
 {
     long Id { get; }
+    long ElectricCompanyId { get; }
     string UserName { get; }
     string Email { get; }
     string FullName { get; }
