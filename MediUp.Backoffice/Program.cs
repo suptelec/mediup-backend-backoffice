@@ -86,7 +86,7 @@ try
 
     builder.Services.AddSingleton(settings);
     builder.Services.AddElectriCompanyService()
-        ;
+        .AddAgentService();
 
 
 
@@ -145,4 +145,3 @@ finally
 {
     Log.CloseAndFlush();
 }
-
