@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MediUp.Domain.Dtos;
 using MediUp.Application.Interfaces;
+using MediUp.Domain.Dtos;
 using MediUp.Domain.Dtos.Identity.User.Requests;
 using MediUp.Domain.Entities;
 using MediUp.Domain.Enums;
@@ -8,9 +8,6 @@ using MediUp.Domain.Enums.Permissions;
 using MediUp.Domain.Interfaces.Identity;
 using MediUp.Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MediUp.Application.Services.Agents;
 
@@ -27,7 +24,7 @@ public class AgentService(
     private readonly IValidatorService _validatorService = validatorService;
     private readonly IIdendityUserApiService _identityUserApiService = identityUserApiService;
 
-    public async Task<ResultDto<AgentResponse>> CreateAsync(CreateAgentRequest request, CancellationToken cancellationToken = default)
+    public async Task<ResultDto<AgentResponse>> CreateAsync(CreateAgentRequestDto request, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
 
@@ -79,7 +76,7 @@ public class AgentService(
             PhoneNumber = request.Phone,
             Password = "Dev#2017",
             IdentityDocument = request.Email,
-            Type = UserType.BackOffice
+            AgentPermission = AgentPermissionType.All
         };
 
         _logger.LogInformation("CreateAgent: creating identity user for email {Email}", request.Email);

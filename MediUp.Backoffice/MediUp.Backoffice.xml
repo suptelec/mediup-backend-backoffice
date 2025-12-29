@@ -11,6 +11,13 @@
             <param name="operation">The Swagger operation.</param>
             <param name="context">The operation filter context.</param>
         </member>
+        <member name="M:MediUp.Backoffice.Controllers.AgentsController.CreateAsync(MediUp.Domain.Dtos.CreateAgentRequest,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new agent and assigns them to an electric company.
+            </summary>
+            <param name="request">Payload containing the agent details.</param>
+            <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> indicating the operation result.</returns>
+        </member>
         <member name="M:MediUp.Backoffice.Controllers.ElectriCompanyController.CreateAsync(MediUp.Domain.Dtos.CreateElectriCompanyRequest,System.Threading.CancellationToken)">
             <summary>
             Creates a new electric company by delegating work to the service and repository layer.

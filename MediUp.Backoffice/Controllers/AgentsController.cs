@@ -22,7 +22,7 @@ public class AgentsController(ILoggerFactory loggerFactory, IAgentService agentS
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(ResultDto<AgentResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResultDto<AgentResponse>), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateAsync([FromBody] CreateAgentRequest request, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> CreateAsync([FromBody] CreateAgentRequestDto request, CancellationToken cancellationToken = default)
     {
         Logger.LogInformation("Request received to create agent with email {Email}.", request.Email);
 

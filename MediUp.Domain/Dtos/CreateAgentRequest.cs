@@ -2,7 +2,7 @@
 
 namespace MediUp.Domain.Dtos;
 
-public class CreateAgentRequest
+public class CreateAgentRequestDto
 {
     public string FirstName { get; set; } = null!;
 
@@ -11,8 +11,6 @@ public class CreateAgentRequest
     public string Email { get; set; } = null!;
 
     public string? Phone { get; set; }
-
-    public AgentPermissionType Permission { get; set; }
 
     public long ElectricCompanyId { get; set; }
 }

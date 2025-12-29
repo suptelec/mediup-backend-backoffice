@@ -1,4 +1,5 @@
 ﻿using MediUp.Domain.Enums;
+using MediUp.Domain.Enums.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,8 @@ public class CreateUserRequestDto
     public string LastName { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public string? PhoneNumber { get; set; }
-    public UserType Type { get; set; }
+    public UserType Type => UserType.FrontOffice;
     public string IdentityDocument { get; set; } = string.Empty;
+    public AgentPermissionType AgentPermission { get; set; }
 
 }
