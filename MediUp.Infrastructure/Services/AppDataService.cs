@@ -13,6 +13,7 @@ public class AppDataService(AppDbContext dbContext) : IAppDataService, IDisposab
 {
     private bool _disposed = false;
 
+    public IAgentRepository Agent { get; } = new AgentRepository(dbContext);
     public IElectriCompanyRepository ElectriCompany { get; } = new ElectriCompanyRepository(dbContext);
 
 

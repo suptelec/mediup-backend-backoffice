@@ -1,0 +1,35 @@
+﻿using FluentValidation;
+using MediUp.Domain.Dtos;
+using MediUp.Domain.Enums.Permissions;
+
+namespace MediUp.Application.Validation.Agents;
+
+public class CreateAgentRequestValidator : AbstractValidator<CreateAgentRequest>
+{
+    public CreateAgentRequestValidator()
+    {
+        RuleFor(request => request.IdentityUserId)
+            .GreaterThan(0);
+
+        RuleFor(request => request.FirstName)
+            .NotEmpty();
+
+        RuleFor(request => request.LastName)
+            .NotEmpty();
+
+        RuleFor(request => request.Email)
+            .NotEmpty()
+            .EmailAddress();
+
+        RuleFor(request => request.Phone)
+            .Matches(@"^\+?[0-9\s\-()]+$")
+            .When(request => !string.IsNullOrWhiteSpace(request.Phone));
+
+        RuleFor(request => request.Permission)
+            .IsInEnum()
+            .NotEqual(AgentPermissionType.None);
+
+        RuleFor(request => request.ElectricCompanyId)
+            .GreaterThan(0);
+    }
+}

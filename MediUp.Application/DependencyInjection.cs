@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediUp.Application.Interfaces;
+using MediUp.Application.Services.Agents;
 using MediUp.Application.Services.ElectriCompanies;
 using MediUp.Application.Validation;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,12 @@ public static class DependencyInjection
     public static IServiceCollection AddElectriCompanyService(this IServiceCollection services)
     {
         services.TryAddScoped<IElectriCompanyService, ElectriCompanyService>();
+        return services;
+    }
+
+    public static IServiceCollection AddAgentService(this IServiceCollection services)
+    {
+        services.TryAddScoped<IAgentService, AgentService>();
         return services;
     }
 
