@@ -6,6 +6,7 @@ using MediUp.Domain.Dtos.Identity.User.Requests;
 using MediUp.Domain.Entities;
 using MediUp.Domain.Enums;
 using MediUp.Domain.Enums.Permissions;
+using MediUp.Domain.Interfaces;
 using MediUp.Domain.Interfaces.Identity;
 using MediUp.Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
@@ -14,12 +15,14 @@ namespace MediUp.Application.Services.Agents;
 
 public class AgentService(
     IAppDataService appDataService,
+    ICurrentLoggedUser currentLoggedUser,
     ILogger<AgentService> logger,
     IMapper mapper,
     IValidatorService validatorService,
     IIdendityUserApiService identityUserApiService) : IAgentService
 {
     private readonly IAppDataService _appDataService = appDataService;
+    private readonly ICurrentLoggedUser _currentLoggedUser = currentLoggedUser;
     private readonly ILogger<AgentService> _logger = logger;
     private readonly IMapper _mapper = mapper;
     private readonly IValidatorService _validatorService = validatorService;
@@ -31,6 +34,15 @@ public class AgentService(
 
         _logger.LogInformation("CreateAgent: request received for email {Email}", request.Email);
 
+        var currentAgent = await _appDataService.Agent.FirstOrDefaultAsync(agent => agent.IdentityUserId == _currentLoggedUser.Id);
+        if (currentAgent is null)
+        {
+            _logger.LogWarning("CreateAgent: agent not found for current user id {UserId}", _currentLoggedUser.Id);
+            return Result.NotFound<AgentResponseDto>("Current user agent was not found.");
+        }
+
+        request.ElectricCompanyId = currentAgent.ElectricCompanyId;
+
         var validationResult = _validatorService.Validate(request);
         if (!validationResult.Succeed)
         {
@@ -39,12 +51,6 @@ public class AgentService(
                 request.Email,
                 validationResult.Message);
             return Result.FromOther<AgentResponseDto>(validationResult);
-        }
-
-        if (request.ElectricCompanyId <= 0)
-        {
-            _logger.LogWarning("CreateAgent: missing electric company for email {Email}", request.Email);
-            return Result.InvalidRequest<AgentResponseDto>("Electric company id is required for the agent.");
         }
 
         bool companyExists = await _appDataService.ElectriCompany.ExistsById(request.ElectricCompanyId);
