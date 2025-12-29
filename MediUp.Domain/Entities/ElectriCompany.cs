@@ -28,4 +28,6 @@ public class ElectriCompany : BaseEntity
     public string? ContactPhone { get; set; }
 
     public virtual ICollection<LigtherMetric> MupLigthermetrics { get; set; } = new List<LigtherMetric>();
+
+    public virtual ICollection<Agent> Agents { get; set; } = new List<Agent>();
 }
