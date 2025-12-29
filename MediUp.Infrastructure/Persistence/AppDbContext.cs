@@ -18,6 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     #endregion
 
     #region Properties
+    public DbSet<Agent> Agents => Set<Agent>();
     public DbSet<ElectriCompany> ElectriCompany => Set<ElectriCompany>();
     public DbSet<EnergyMeasurementDownload> EnergyMeasurementDownloads => Set<EnergyMeasurementDownload>();
     public DbSet<EnergyMeasurementEvent> EnergyMeasurementEvents => Set<EnergyMeasurementEvent>();
