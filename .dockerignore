@@ -1,0 +1,16 @@
+.git
+.gitignore
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/TestResults
+**/*.user
+**/*.suo
+**/*.cache
+**/*.log
+**/*.pdb
+**/*.md
+docker-compose*
+Dockerfile*
+**/wwwroot/lib
