@@ -4,8 +4,6 @@ namespace MediUp.Domain.Dtos;
 
 public class CreateAgentRequest
 {
-    public long IdentityUserId { get; set; }
-
     public string FirstName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;

@@ -8,9 +8,6 @@ public class CreateAgentRequestValidator : AbstractValidator<CreateAgentRequest>
 {
     public CreateAgentRequestValidator()
     {
-        RuleFor(request => request.IdentityUserId)
-            .GreaterThan(0);
-
         RuleFor(request => request.FirstName)
             .NotEmpty();
 
@@ -27,7 +24,7 @@ public class CreateAgentRequestValidator : AbstractValidator<CreateAgentRequest>
 
         RuleFor(request => request.Permission)
             .IsInEnum()
-            .NotEqual(AgentPermissionType.None);
+            .Equal(AgentPermissionType.All);
 
         RuleFor(request => request.ElectricCompanyId)
             .GreaterThan(0);
