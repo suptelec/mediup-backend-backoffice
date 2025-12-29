@@ -7,5 +7,5 @@ namespace MediUp.Application.Services.Agents;
 
 public interface IAgentService
 {
-    Task<ResultDto<AgentResponse>> CreateAsync(CreateAgentRequestDto request, CancellationToken cancellationToken = default);
+    Task<ResultDto<AgentResponseDto>> CreateAsync(CreateAgentRequestDto request, CancellationToken cancellationToken = default);
 }

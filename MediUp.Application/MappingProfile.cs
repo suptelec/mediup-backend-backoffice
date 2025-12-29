@@ -15,8 +15,8 @@ public class MappingProfile : Profile
     /// </summary>
     public MappingProfile()
     {
-        CreateMap<CreateAgentRequest, Agent>().ReverseMap();
-        CreateMap<Agent, AgentResponse>().ReverseMap();
+        CreateMap<CreateAgentRequestDto, Agent>().ReverseMap();
+        CreateMap<Agent, AgentResponseDto>().ReverseMap();
         CreateMap<CreateElectriCompanyRequest, ElectriCompany>().ReverseMap();
         CreateMap<ElectriCompany, ElectriCompanyResponse>().ReverseMap();
     }

@@ -20,8 +20,8 @@ public class AgentsController(ILoggerFactory loggerFactory, IAgentService agentS
     [HttpPost]
     [Authorize(Roles = "Admin")]
     [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(typeof(ResultDto<AgentResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResultDto<AgentResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResultDto<AgentResponseDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResultDto<AgentResponseDto>), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync([FromBody] CreateAgentRequestDto request, CancellationToken cancellationToken = default)
     {
         Logger.LogInformation("Request received to create agent with email {Email}.", request.Email);
@@ -30,7 +30,7 @@ public class AgentsController(ILoggerFactory loggerFactory, IAgentService agentS
         if (!validationResult.Succeed)
         {
             Logger.LogWarning("Validation failed when creating agent with email {Email}: {Errors}", request.Email, validationResult.Message);
-            return HandleResult(Result.FromOther<AgentResponse>(validationResult));
+            return HandleResult(Result.FromOther<AgentResponseDto>(validationResult));
         }
 
         var result = await _agentService.CreateAsync(request, cancellationToken);

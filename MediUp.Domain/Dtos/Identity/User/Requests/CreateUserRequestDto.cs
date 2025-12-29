@@ -20,5 +20,7 @@ public class CreateUserRequestDto
     public UserType Type => UserType.FrontOffice;
     public string IdentityDocument { get; set; } = string.Empty;
     public AgentPermissionType AgentPermission { get; set; }
+    public long RoleId { get; set; }
+
 
 }

@@ -2,7 +2,7 @@
 
 namespace MediUp.Domain.Dtos;
 
-public class AgentResponse
+public class AgentResponseDto
 {
     public long Id { get; set; }
     public long IdentityUserId { get; set; }

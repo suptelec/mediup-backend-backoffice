@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediUp.Application.Interfaces;
+using MediUp.Domain.Constants;
 using MediUp.Domain.Dtos;
 using MediUp.Domain.Dtos.Identity.User.Requests;
 using MediUp.Domain.Entities;
@@ -24,7 +25,7 @@ public class AgentService(
     private readonly IValidatorService _validatorService = validatorService;
     private readonly IIdendityUserApiService _identityUserApiService = identityUserApiService;
 
-    public async Task<ResultDto<AgentResponse>> CreateAsync(CreateAgentRequestDto request, CancellationToken cancellationToken = default)
+    public async Task<ResultDto<AgentResponseDto>> CreateAsync(CreateAgentRequestDto request, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
 
@@ -37,13 +38,13 @@ public class AgentService(
                 "CreateAgent: validation failed for email {Email}: {Message}",
                 request.Email,
                 validationResult.Message);
-            return Result.FromOther<AgentResponse>(validationResult);
+            return Result.FromOther<AgentResponseDto>(validationResult);
         }
 
         if (request.ElectricCompanyId <= 0)
         {
             _logger.LogWarning("CreateAgent: missing electric company for email {Email}", request.Email);
-            return Result.InvalidRequest<AgentResponse>("Electric company id is required for the agent.");
+            return Result.InvalidRequest<AgentResponseDto>("Electric company id is required for the agent.");
         }
 
         bool companyExists = await _appDataService.ElectriCompany.ExistsById(request.ElectricCompanyId);
@@ -53,7 +54,7 @@ public class AgentService(
                 "CreateAgent: electric company {ElectricCompanyId} not found for email {Email}",
                 request.ElectricCompanyId,
                 request.Email);
-            return Result.NotFound<AgentResponse>($"Electric company with id = {request.ElectricCompanyId} was not found");
+            return Result.NotFound<AgentResponseDto>($"Electric company with id = {request.ElectricCompanyId} was not found");
         }
 
         bool emailExists = await _appDataService.Agent.ExistsAsync(agent =>
@@ -64,7 +65,7 @@ public class AgentService(
                 "CreateAgent: email {Email} already exists for company {ElectricCompanyId}",
                 request.Email,
                 request.ElectricCompanyId);
-            return Result.Fail<AgentResponse>(AppMessageType.ISResourceAlreadyExists, $"An agent with email '{request.Email}' already exists.");
+            return Result.Fail<AgentResponseDto>(AppMessageType.ISResourceAlreadyExists, $"An agent with email '{request.Email}' already exists.");
         }
 
         var identityRequest = new CreateUserRequestDto
@@ -76,7 +77,8 @@ public class AgentService(
             PhoneNumber = request.Phone,
             Password = "Dev#2017",
             IdentityDocument = request.Email,
-            AgentPermission = AgentPermissionType.All
+            AgentPermission = AgentPermissionType.All,
+            RoleId = AppConstants.RoleAgentId
         };
 
         _logger.LogInformation("CreateAgent: creating identity user for email {Email}", request.Email);
@@ -84,7 +86,7 @@ public class AgentService(
         if (!identityResult.Succeed || identityResult.Result is null)
         {
             _logger.LogWarning("CreateAgent: failed to create identity user for email {Email}", request.Email);
-            return Result.FromOther<AgentResponse>(identityResult);
+            return Result.FromOther<AgentResponseDto>(identityResult);
         }
 
         var entity = _mapper.Map<Agent>(request);
@@ -96,7 +98,7 @@ public class AgentService(
         _appDataService.Agent.Add(entity);
         await _appDataService.SaveChangesAsync();
 
-        var response = _mapper.Map<AgentResponse>(entity);
+        var response = _mapper.Map<AgentResponseDto>(entity);
 
         _logger.LogInformation("CreateAgent: agent {Id} created successfully", entity.Id);
 
