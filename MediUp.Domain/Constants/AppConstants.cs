@@ -16,6 +16,8 @@ public static class AppConstants
     public const string GlobalPermissionsClaim = "mup.global.permissions";
     public const string BillBatchPermissionClaim = "mup.billbatch.permissions";
 
+    public const string PermissionsClaim = "permissions";
+
     public const int RoleAgentId = 2;
 
 

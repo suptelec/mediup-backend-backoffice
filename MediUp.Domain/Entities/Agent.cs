@@ -13,8 +13,6 @@ public class Agent : BaseEntity
 
     public string? Phone { get; set; }
 
-    public AgentPermissionType Permission { get; set; }
-
     public long ElectricCompanyId { get; set; }
 
     public virtual ElectriCompany ElectricCompany { get; set; } = null!;

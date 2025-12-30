@@ -25,7 +25,6 @@ public class AuthorizationPolicyProvider(IOptions<AuthorizationOptions> options)
 
         return await base.GetPolicyAsync(policyName)
                ?? new AuthorizationPolicyBuilder()
-                   .RequireClaim(claimType)
                    .AddRequirements(new PermissionRequirement(claimType, enumValue))
                    .Build();
     }
