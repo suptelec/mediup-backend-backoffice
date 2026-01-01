@@ -133,4 +133,25 @@ public class IdendityUserApiService : BaseApiService, IIdendityUserApiService
         return response;
     }
 
+    public async Task<EmptyResultDto> AddUserClaim(long id, AddUserClaimRequestDto dto)
+    {
+        var response = new EmptyResultDto();
+        try
+        {
+            Logger.LogInformation($"{nameof(AddUserClaim)}: Trying to add claim for userId : {id} ...");
+            response = await _user.AddUserClaim(id, dto);
+        }
+        catch (ApiException apiEx)
+        {
+            Logger.LogError(apiEx, $"{nameof(AddUserClaim)}: Api exception occurred trying to add claim for userId : {id} ...");
+            await HandleApiException(apiEx, response);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, $"{nameof(AddUserClaim)}: Unknown error occurred trying to add claim for userId : {id} ...");
+            HandleUnknownException(response);
+        }
+        return response;
+    }
+
 }
