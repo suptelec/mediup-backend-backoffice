@@ -92,7 +92,6 @@ public class AgentService(
         var entity = _mapper.Map<Agent>(request);
         entity.ElectricCompanyId = request.ElectricCompanyId;
         entity.IdentityUserId = identityResult.Result.Id;
-        entity.Permission = AgentPermissionType.All;
 
         _logger.LogInformation("CreateAgent: persisting agent for email {Email}", request.Email);
         _appDataService.Agent.Add(entity);
