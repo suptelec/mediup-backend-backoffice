@@ -89,6 +89,12 @@ public class AgentService(
             return Result.FromOther<AgentResponseDto>(identityResult);
         }
 
+        var claimResult = await AddFrontOfficeClaimsAsync(identityResult.Result.Id);
+        if (!claimResult.Succeed)
+        {
+            return Result.FromOther<AgentResponseDto>(claimResult);
+        }
+
         var entity = _mapper.Map<Agent>(request);
         entity.ElectricCompanyId = request.ElectricCompanyId;
         entity.IdentityUserId = identityResult.Result.Id;
@@ -102,5 +108,51 @@ public class AgentService(
         _logger.LogInformation("CreateAgent: agent {Id} created successfully", entity.Id);
 
         return Result.Success(response);
+    }
+
+    private async Task<EmptyResultDto> AddFrontOfficeClaimsAsync(long userId)
+    {
+        var frontOfficeClaims = new List<AddUserClaimRequestDto>
+        {
+            new()
+            {
+                ClaimType = AppConstants.MeterPermissionsClaim,
+                ClaimValue = ((long)MeterPermissionType.All).ToString()
+            },
+            new()
+            {
+                ClaimType = AppConstants.EnergyMeasurementDownloadPermissionsClaim,
+                ClaimValue = ((long)EnergyMeasurementDownloadPermissionType.All).ToString()
+            },
+            new()
+            {
+                ClaimType = AppConstants.DashboardPermissionsClaim,
+                ClaimValue = ((long)DashboardPermissionType.All).ToString()
+            },
+            new()
+            {
+                ClaimType = AppConstants.AgentPermissionsClaim,
+                ClaimValue = ((long)AgentPermissionType.All).ToString()
+            }
+        };
+
+        foreach (var claim in frontOfficeClaims)
+        {
+            _logger.LogInformation(
+                "CreateAgent: adding claim {ClaimType} for identity user {UserId}",
+                claim.ClaimType,
+                userId);
+            var claimResult = await _identityUserApiService.AddUserClaim(userId, claim);
+            if (!claimResult.Succeed)
+            {
+                _logger.LogWarning(
+                    "CreateAgent: failed to add claim {ClaimType} for identity user {UserId}",
+                    claim.ClaimType,
+                    userId);
+                return EmptyResult.FromOther(claimResult);
+            }
+        }
+
+        return EmptyResult.Success();
     }
 }
