@@ -1,4 +1,4 @@
-﻿using MediUp.Domain.Enums.Permissions;
+﻿using MediUp.Domain.Enums.Permissions.FrontOffice;
 
 namespace MediUp.Domain.Dtos;
 

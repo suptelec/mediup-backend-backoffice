@@ -5,7 +5,7 @@ using MediUp.Domain.Dtos;
 using MediUp.Domain.Dtos.Identity.User.Requests;
 using MediUp.Domain.Entities;
 using MediUp.Domain.Enums;
-using MediUp.Domain.Enums.Permissions;
+using MediUp.Domain.Enums.Permissions.FrontOffice;
 using MediUp.Domain.Interfaces.Identity;
 using MediUp.Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;

@@ -1,5 +1,5 @@
 ﻿using MediUp.Domain.Enums;
-using MediUp.Domain.Enums.Permissions;
+using MediUp.Domain.Enums.Permissions.FrontOffice;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MediUp.Domain.Enums.Permissions;
+namespace MediUp.Domain.Enums.Permissions.FrontOffice;
 [Flags]
 public enum AgentPermissionType : long
 {
