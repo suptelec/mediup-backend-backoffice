@@ -16,4 +16,5 @@ public interface IIdendityUserApiService
     Task<EmptyResultDto> ActivateUser(long id, UserStatusType? userStatus = null);
     Task<EmptyResultDto> InactivateUser(long id);
     Task<EmptyResultDto> DeleteUser(long id);
+    Task<EmptyResultDto> AddUserClaim(long id, AddUserClaimRequestDto dto);
 }
