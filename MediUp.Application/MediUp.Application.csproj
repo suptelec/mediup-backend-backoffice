@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MediUp.Domain\MediUp.Domain.csproj" />
-    <PackageReference Include="AutoMapper" Version="14.0.0" />
 	<PackageReference Include="Microsoft.AspNetCore.OData" Version="9.4.1" />
 	<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.10" />
 	<PackageReference Include="MimeKit" Version="4.14.0" />
