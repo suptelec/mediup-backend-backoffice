@@ -12,11 +12,14 @@ public class LigtherMetric : BaseEntity
 
     public string? Model { get; set; }
 
-    public string? Version { get; set; }
-
     public decimal Latitude { get; set; }
 
     public decimal Longitude { get; set; }
+    public int ManufacturingYear { get; set; }
+
+    public string Province { get; set; } = string.Empty;
+
+    public string Sector { get; set; } = string.Empty;
 
     public DateTime? LastCalibrationDate { get; set; }
     public DateTime? NextCalibrationDate  { get; set; }
