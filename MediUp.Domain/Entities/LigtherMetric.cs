@@ -8,22 +8,20 @@ namespace MediUp.Domain.Entities;
 public class LigtherMetric : BaseEntity
 {
     public string Serial { get; set; } = null!;
+    public string Codigo { get; set; } = null!;
 
     public string? Model { get; set; }
 
-    public string? FirmwareVersion { get; set; }
+    public string? Version { get; set; }
 
-    public decimal? Latitude { get; set; }
+    public decimal Latitude { get; set; }
 
-    public decimal? Longitude { get; set; }
+    public decimal Longitude { get; set; }
 
-    public decimal? Altitude { get; set; }
+    public DateTime? LastCalibrationDate { get; set; }
+    public DateTime? NextCalibrationDate  { get; set; }
 
-    public DateOnly? InstallationDate { get; set; }
-
-    public DateTime? LastMaintenanceAt { get; set; }
-
-    public string Status { get; set; } = null!;
+    public string? Status { get; set; } 
 
     public long ElectricCompanyId { get; set; }
 
