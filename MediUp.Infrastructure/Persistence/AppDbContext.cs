@@ -12,7 +12,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
 
     #region Views
 
-    
+
 
 
     #endregion
@@ -23,7 +23,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<EnergyMeasurementDownload> EnergyMeasurementDownloads => Set<EnergyMeasurementDownload>();
     public DbSet<EnergyMeasurementEvent> EnergyMeasurementEvents => Set<EnergyMeasurementEvent>();
     public DbSet<EnergyMeasurementData> EnergyMeasurementData => Set<EnergyMeasurementData>();
-    
+    public DbSet<EnergyMeasurementRegister> EnergyMeasurementRegisters => Set<EnergyMeasurementRegister>();
+
 
     #endregion
 
@@ -34,9 +35,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         modelBuilder.HasDefaultSchema(DbConstants.Scheme);
         modelBuilder.ApplyConfiguration(new CustomAuditLogTypeConfiguration(nameof(AuditLog), DbConstants.Scheme));
-       
 
-        
+
+
     }
 
     private static AuditSettings GetAuditSettings()
