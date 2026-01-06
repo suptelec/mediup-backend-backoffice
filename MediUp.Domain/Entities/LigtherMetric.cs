@@ -27,6 +27,7 @@ public class LigtherMetric : BaseEntity
     public string? Status { get; set; } 
     public string? UrlPicture { get; set; } 
     public string? Address { get; set; } 
+    public string? Reference { get; set; } 
 
     public long ElectricCompanyId { get; set; }
 
