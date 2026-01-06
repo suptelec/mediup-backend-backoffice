@@ -25,6 +25,8 @@ public class LigtherMetric : BaseEntity
     public DateTime? NextCalibrationDate  { get; set; }
 
     public string? Status { get; set; } 
+    public string? UrlPicture { get; set; } 
+    public string? Address { get; set; } 
 
     public long ElectricCompanyId { get; set; }
 

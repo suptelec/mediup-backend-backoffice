@@ -50,7 +50,7 @@ public static class SwaggerIdentityServiceCollections
             In = ParameterLocation.Header,
             Name = HeaderNames.Authorization,
             Type = SecuritySchemeType.ApiKey,
-            Scheme = scheme
+            Scheme = "bearer",
         };
 
         var securityReq = new OpenApiSecurityRequirement
