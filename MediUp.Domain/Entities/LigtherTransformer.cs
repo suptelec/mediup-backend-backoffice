@@ -1,7 +1,7 @@
 ﻿using MediUp.Domain.Enums;
 
 namespace MediUp.Domain.Entities;
-public class LigtherTransformer
+public class LigtherTransformer: BaseEntity
 {
     public string Serial { get; set; } = null!;
     public string? Codigo { get; set; }
