@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MediUp.Domain.Entities;
 public class LigtherMetric : BaseEntity
@@ -35,4 +31,5 @@ public class LigtherMetric : BaseEntity
     public long ElectricCompanyId { get; set; }
 
     public virtual ElectriCompany ElectricCompany { get; set; } = null!;
+    public virtual ICollection<LigtherTransformerMetric> LigtherTransformerMetrics { get; set; } = new List<LigtherTransformerMetric>();
 }

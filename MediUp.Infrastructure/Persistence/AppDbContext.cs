@@ -24,6 +24,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<EnergyMeasurementEvent> EnergyMeasurementEvents => Set<EnergyMeasurementEvent>();
     public DbSet<EnergyMeasurementData> EnergyMeasurementData => Set<EnergyMeasurementData>();
     public DbSet<LigtherTransformer> LigtherTransformers => Set<LigtherTransformer>();
+    public DbSet<LigtherMetric> LigtherMetrics => Set<LigtherMetric>();
+    public DbSet<LigtherTransformerMetric> LigtherTransformerMetrics => Set<LigtherTransformerMetric>();
 
 
     #endregion
