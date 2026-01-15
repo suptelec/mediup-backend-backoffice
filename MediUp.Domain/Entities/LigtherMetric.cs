@@ -11,6 +11,8 @@ public class LigtherMetric : BaseEntity
     public string Codigo { get; set; } = null!;
 
     public string? Model { get; set; }
+    public string? Brand { get; set; }
+    public string? Class { get; set; }
 
     public decimal Latitude { get; set; }
 
@@ -28,6 +30,7 @@ public class LigtherMetric : BaseEntity
     public string? UrlPicture { get; set; } 
     public string? Address { get; set; } 
     public string? Reference { get; set; } 
+    public bool IsPrincipal { get; set; }
 
     public long ElectricCompanyId { get; set; }
 

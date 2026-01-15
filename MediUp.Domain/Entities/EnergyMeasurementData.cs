@@ -6,7 +6,7 @@ public class EnergyMeasurementData : BaseEntity
 {
     public int ExternalId { get; set; }
 
-    public DateTime MeasuredAt { get; set; }
+    public string MeasuredAt { get; set; } = null!;
 
     public DateTime MeasuredAtIso { get; set; }
 
