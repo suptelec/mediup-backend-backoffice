@@ -60,6 +60,14 @@ public abstract class RepositoryBase<TEntity, TDbContext> : IRepositoryBase<TEnt
         return await _dbSet.ToListAsync();
     }
 
+    public virtual async Task<TEntity?> GetByIdAsync(long id)
+    {
+        Check.NotEmpty(id, nameof(id));
+
+        return await ((IQueryable<IBaseEntity>)_dbSet)
+            .FirstOrDefaultAsync(entity => entity.Id == id);
+    }
+
     public virtual Task<bool> ExistsById(long id)
     {
         Check.NotEmpty(id, nameof(id));

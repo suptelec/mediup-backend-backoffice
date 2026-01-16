@@ -14,6 +14,7 @@ public interface IRepositoryBase<TEntity> where TEntity : class
     Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
 
     Task<IEnumerable<TEntity>> GetAllAsync();
+    Task<TEntity?> GetByIdAsync(long id);
     void Remove(TEntity entity);
 
     void RemoveRange(IEnumerable<TEntity> entity);

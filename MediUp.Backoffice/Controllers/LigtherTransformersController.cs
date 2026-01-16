@@ -61,4 +61,32 @@ public class LigtherTransformersController(ILoggerFactory loggerFactory, ILigthe
 
         return HandleResult(result);
     }
+
+    /// <summary>
+    /// Retrieves a transformer by id.
+    /// </summary>
+    /// <param name="id">Transformer id.</param>
+    /// <returns>A <see cref="ResultDto{T}"/> containing the transformer.</returns>
+    [HttpGet("{id:long}")]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(ResultDto<LigtherTransformerResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResultDto<LigtherTransformerResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResultDto<LigtherTransformerResponse>), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetByIdAsync(long id, CancellationToken cancellationToken = default)
+    {
+        Logger.LogInformation("Request received to retrieve transformer {Id}.", id);
+
+        var result = await _ligtherTransformerService.GetByIdAsync(id, cancellationToken);
+
+        if (result.Succeed)
+        {
+            Logger.LogInformation("Retrieved transformer {Id} successfully.", id);
+        }
+        else
+        {
+            Logger.LogWarning("Failed to retrieve transformer {Id}. Error: {Error}", id, result.Message);
+        }
+
+        return HandleResult(result);
+    }
 }

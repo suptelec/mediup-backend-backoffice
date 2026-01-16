@@ -7,4 +7,6 @@ public interface ILigtherTransformerService
     Task<ResultDto<LigtherTransformerResponse>> CreateAsync(CreateLigtherTransformerRequest request, CancellationToken cancellationToken = default);
 
     Task<ResultDto<IEnumerable<LigtherTransformerResponse>>> GetAllAsync(CancellationToken cancellationToken = default);
+
+    Task<ResultDto<LigtherTransformerResponse>> GetByIdAsync(long id, CancellationToken cancellationToken = default);
 }
