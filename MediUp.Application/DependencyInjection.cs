@@ -2,6 +2,7 @@
 using MediUp.Application.Interfaces;
 using MediUp.Application.Services.Agents;
 using MediUp.Application.Services.ElectriCompanies;
+using MediUp.Application.Services.LigtherTransformers;
 using MediUp.Application.Validation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -51,6 +52,12 @@ public static class DependencyInjection
     public static IServiceCollection AddAgentService(this IServiceCollection services)
     {
         services.TryAddScoped<IAgentService, AgentService>();
+        return services;
+    }
+
+    public static IServiceCollection AddLigtherTransformerService(this IServiceCollection services)
+    {
+        services.TryAddScoped<ILigtherTransformerService, LigtherTransformerService>();
         return services;
     }
 

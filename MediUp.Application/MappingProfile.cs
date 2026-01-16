@@ -19,6 +19,8 @@ public class MappingProfile : Profile
         CreateMap<Agent, AgentResponseDto>().ReverseMap();
         CreateMap<CreateElectriCompanyRequest, ElectriCompany>().ReverseMap();
         CreateMap<ElectriCompany, ElectriCompanyResponse>().ReverseMap();
+        CreateMap<CreateLigtherTransformerRequest, LigtherTransformer>().ReverseMap();
+        CreateMap<LigtherTransformer, LigtherTransformerResponse>().ReverseMap();
     }
 
 }

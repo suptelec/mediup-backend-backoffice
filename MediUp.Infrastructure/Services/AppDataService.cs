@@ -15,6 +15,7 @@ public class AppDataService(AppDbContext dbContext) : IAppDataService, IDisposab
 
     public IAgentRepository Agent { get; } = new AgentRepository(dbContext);
     public IElectriCompanyRepository ElectriCompany { get; } = new ElectriCompanyRepository(dbContext);
+    public ILigtherTransformerRepository LigtherTransformer { get; } = new LigtherTransformerRepository(dbContext);
 
 
 
