@@ -21,6 +21,8 @@ public class MappingProfile : Profile
         CreateMap<ElectriCompany, ElectriCompanyResponse>().ReverseMap();
         CreateMap<CreateLigtherTransformerRequest, LigtherTransformer>().ReverseMap();
         CreateMap<LigtherTransformer, LigtherTransformerResponse>().ReverseMap();
+        CreateMap<CreateLigtherMetricRequest, LigtherMetric>().ReverseMap();
+        CreateMap<LigtherMetric, LigtherMetricResponse>().ReverseMap();
     }
 
 }

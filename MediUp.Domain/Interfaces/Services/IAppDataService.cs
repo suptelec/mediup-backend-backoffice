@@ -11,6 +11,7 @@ public interface IAppDataService : IDisposable
     IAgentRepository Agent { get; }
     IElectriCompanyRepository ElectriCompany { get; }
     ILigtherTransformerRepository LigtherTransformer { get; }
+    ILigtherMetricRepository LigtherMetric { get; }
   
 
     Task SaveChangesAsync();

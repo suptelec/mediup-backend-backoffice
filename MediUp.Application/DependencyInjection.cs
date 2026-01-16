@@ -2,6 +2,7 @@
 using MediUp.Application.Interfaces;
 using MediUp.Application.Services.Agents;
 using MediUp.Application.Services.ElectriCompanies;
+using MediUp.Application.Services.LigtherMetrics;
 using MediUp.Application.Services.LigtherTransformers;
 using MediUp.Application.Validation;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,6 +59,12 @@ public static class DependencyInjection
     public static IServiceCollection AddLigtherTransformerService(this IServiceCollection services)
     {
         services.TryAddScoped<ILigtherTransformerService, LigtherTransformerService>();
+        return services;
+    }
+
+    public static IServiceCollection AddLigtherMetricService(this IServiceCollection services)
+    {
+        services.TryAddScoped<ILigtherMetricService, LigtherMetricService>();
         return services;
     }
 
