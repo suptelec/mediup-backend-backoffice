@@ -76,4 +76,28 @@ public class LigtherMetricService(
 
         return Result.Success<IEnumerable<LigtherMetricResponse>>(response);
     }
+
+    public async Task<ResultDto<LigtherMetricResponse>> GetByIdAsync(long id, CancellationToken cancellationToken = default)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("GetLigtherMetricById: invalid id {Id}.", id);
+            return Result.InvalidId<LigtherMetricResponse>(id);
+        }
+
+        _logger.LogInformation("GetLigtherMetricById: retrieving ligthmeter {Id}.", id);
+
+        var metric = await _appDataService.LigtherMetric.GetByIdAsync(id);
+
+        if (metric is null)
+        {
+            _logger.LogWarning("GetLigtherMetricById: ligthmeter {Id} not found.", id);
+            return Result.NotFound<LigtherMetricResponse>($"Ligthmeter with id = {id} was not found");
+        }
+
+        var response = _mapper.Map<LigtherMetricResponse>(metric);
+
+        _logger.LogInformation("GetLigtherMetricById: ligthmeter {Id} retrieved successfully.", id);
+        return Result.Success(response);
+    }
 }

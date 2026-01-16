@@ -76,4 +76,28 @@ public class LigtherTransformerService(
 
         return Result.Success<IEnumerable<LigtherTransformerResponse>>(response);
     }
+
+    public async Task<ResultDto<LigtherTransformerResponse>> GetByIdAsync(long id, CancellationToken cancellationToken = default)
+    {
+        if (id <= 0)
+        {
+            _logger.LogWarning("GetLigtherTransformerById: invalid id {Id}.", id);
+            return Result.InvalidId<LigtherTransformerResponse>(id);
+        }
+
+        _logger.LogInformation("GetLigtherTransformerById: retrieving transformer {Id}.", id);
+
+        var transformer = await _appDataService.LigtherTransformer.GetByIdAsync(id);
+
+        if (transformer is null)
+        {
+            _logger.LogWarning("GetLigtherTransformerById: transformer {Id} not found.", id);
+            return Result.NotFound<LigtherTransformerResponse>($"Transformer with id = {id} was not found");
+        }
+
+        var response = _mapper.Map<LigtherTransformerResponse>(transformer);
+
+        _logger.LogInformation("GetLigtherTransformerById: transformer {Id} retrieved successfully.", id);
+        return Result.Success(response);
+    }
 }

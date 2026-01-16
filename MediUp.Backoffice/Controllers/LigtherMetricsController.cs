@@ -61,4 +61,32 @@ public class LigtherMetricsController(ILoggerFactory loggerFactory, ILigtherMetr
 
         return HandleResult(result);
     }
+
+    /// <summary>
+    /// Retrieves a ligthmeter by id.
+    /// </summary>
+    /// <param name="id">Ligthmeter id.</param>
+    /// <returns>A <see cref="ResultDto{T}"/> containing the ligthmeter.</returns>
+    [HttpGet("{id:long}")]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(ResultDto<LigtherMetricResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResultDto<LigtherMetricResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResultDto<LigtherMetricResponse>), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetByIdAsync(long id, CancellationToken cancellationToken = default)
+    {
+        Logger.LogInformation("Request received to retrieve ligthmeter {Id}.", id);
+
+        var result = await _ligtherMetricService.GetByIdAsync(id, cancellationToken);
+
+        if (result.Succeed)
+        {
+            Logger.LogInformation("Retrieved ligthmeter {Id} successfully.", id);
+        }
+        else
+        {
+            Logger.LogWarning("Failed to retrieve ligthmeter {Id}. Error: {Error}", id, result.Message);
+        }
+
+        return HandleResult(result);
+    }
 }
