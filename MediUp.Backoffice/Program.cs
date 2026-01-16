@@ -86,7 +86,8 @@ try
 
     builder.Services.AddSingleton(settings);
     builder.Services.AddElectriCompanyService()
-        .AddAgentService();
+        .AddAgentService()
+        .AddLigtherTransformerService();
 
 
 
