@@ -40,5 +40,45 @@
             Creates a user in the identity service.
             </summary>
         </member>
+        <member name="M:MediUp.Backoffice.Controllers.LigtherMetricsController.CreateAsync(MediUp.Domain.Dtos.CreateLigtherMetricRequest,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new ligthmeter by delegating work to the service and repository layer.
+            </summary>
+            <param name="request">Payload containing the ligthmeter details.</param>
+            <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> indicating the operation result.</returns>
+        </member>
+        <member name="M:MediUp.Backoffice.Controllers.LigtherMetricsController.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all ligthmeters.
+            </summary>
+            <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> containing the list of ligthmeters.</returns>
+        </member>
+        <member name="M:MediUp.Backoffice.Controllers.LigtherMetricsController.GetByIdAsync(System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves a ligthmeter by id.
+            </summary>
+            <param name="id">Ligthmeter id.</param>
+            <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> containing the ligthmeter.</returns>
+        </member>
+        <member name="M:MediUp.Backoffice.Controllers.LigtherTransformersController.CreateAsync(MediUp.Domain.Dtos.CreateLigtherTransformerRequest,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new transformer by delegating work to the service and repository layer.
+            </summary>
+            <param name="request">Payload containing the transformer details.</param>
+            <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> indicating the operation result.</returns>
+        </member>
+        <member name="M:MediUp.Backoffice.Controllers.LigtherTransformersController.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all transformers.
+            </summary>
+            <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> containing the list of transformers.</returns>
+        </member>
+        <member name="M:MediUp.Backoffice.Controllers.LigtherTransformersController.GetByIdAsync(System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves a transformer by id.
+            </summary>
+            <param name="id">Transformer id.</param>
+            <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> containing the transformer.</returns>
+        </member>
     </members>
 </doc>
