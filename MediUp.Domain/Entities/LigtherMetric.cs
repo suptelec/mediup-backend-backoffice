@@ -29,6 +29,7 @@ public class LigtherMetric : BaseEntity
     public bool IsPrincipal { get; set; }
 
     public long ElectricCompanyId { get; set; }
+    public string? PrincipalCode { get; set; }
 
     public virtual ElectriCompany ElectricCompany { get; set; } = null!;
     public virtual ICollection<LigtherTransformerMetric> LigtherTransformerMetrics { get; set; } = new List<LigtherTransformerMetric>();

@@ -23,5 +23,10 @@ public class CreateLigtherMetricRequestValidator : AbstractValidator<CreateLigth
             .GreaterThanOrEqualTo(request => request.LastCalibrationDate)
             .When(request => request.LastCalibrationDate.HasValue && request.NextCalibrationDate.HasValue)
             .WithMessage("The next calibration date must be after the last calibration date.");
+
+        RuleFor(x => x.PrincipalCode)
+          .NotEmpty()
+          .When(x => !x.IsPrincipal)
+          .WithMessage("PrincipalCode is required when IsPrincipal is false.");
     }
 }

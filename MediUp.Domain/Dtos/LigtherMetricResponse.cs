@@ -39,4 +39,6 @@ public class LigtherMetricResponse
     public bool IsPrincipal { get; set; }
 
     public long ElectricCompanyId { get; set; }
+    public string? PrincipalCode { get; set; }
+
 }
