@@ -328,6 +328,9 @@ namespace MediUp.Infrastructure.Migrations
                     b.Property<DateTime?>("NextCalibrationDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("PrincipalCode")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Province")
                         .IsRequired()
                         .HasColumnType("longtext");

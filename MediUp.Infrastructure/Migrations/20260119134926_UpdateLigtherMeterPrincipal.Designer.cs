@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediUp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260115180617_LigetherTranformerMetrics-Add")]
-    partial class LigetherTranformerMetricsAdd
+    [Migration("20260119134926_UpdateLigtherMeterPrincipal")]
+    partial class UpdateLigtherMeterPrincipal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -330,6 +330,9 @@ namespace MediUp.Infrastructure.Migrations
 
                     b.Property<DateTime?>("NextCalibrationDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("PrincipalCode")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Province")
                         .IsRequired()
