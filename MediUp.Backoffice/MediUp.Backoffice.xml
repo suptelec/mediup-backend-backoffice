@@ -24,6 +24,7 @@
             </summary>
             <param name="request">Payload containing the electric company details.</param>
             <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> indicating the operation result.</returns>
+            <param name="cancellationToken">Cancellation token.</param>    
             <remarks>
             This endpoint logs the flow so we can trace the request through the controller.
             It also keeps the controller thin by delegating validation and persistence to the service layer.
@@ -45,6 +46,7 @@
             Creates a new ligthmeter by delegating work to the service and repository layer.
             </summary>
             <param name="request">Payload containing the ligthmeter details.</param>
+            <param name="cancellationToken">Cancellation token.</param>    
             <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> indicating the operation result.</returns>
         </member>
         <member name="M:MediUp.Backoffice.Controllers.LigtherMetricsController.GetAllAsync(System.Threading.CancellationToken)">
@@ -58,6 +60,7 @@
             Retrieves a ligthmeter by id.
             </summary>
             <param name="id">Ligthmeter id.</param>
+            <param name="cancellationToken">Cancellation token.</param>    
             <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> containing the ligthmeter.</returns>
         </member>
         <member name="M:MediUp.Backoffice.Controllers.LigtherTransformersController.CreateAsync(MediUp.Domain.Dtos.CreateLigtherTransformerRequest,System.Threading.CancellationToken)">
@@ -65,6 +68,7 @@
             Creates a new transformer by delegating work to the service and repository layer.
             </summary>
             <param name="request">Payload containing the transformer details.</param>
+            <param name="cancellationToken">Cancellation token.</param>    
             <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> indicating the operation result.</returns>
         </member>
         <member name="M:MediUp.Backoffice.Controllers.LigtherTransformersController.GetAllAsync(System.Threading.CancellationToken)">
@@ -78,6 +82,7 @@
             Retrieves a transformer by id.
             </summary>
             <param name="id">Transformer id.</param>
+            <param name="cancellationToken">Cancellation token.</param>    
             <returns>A <see cref="T:MediUp.Domain.Dtos.ResultDto`1"/> containing the transformer.</returns>
         </member>
     </members>
