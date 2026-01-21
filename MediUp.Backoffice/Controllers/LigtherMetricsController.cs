@@ -13,6 +13,7 @@ public class LigtherMetricsController(ILoggerFactory loggerFactory, ILigtherMetr
     /// Creates a new ligthmeter by delegating work to the service and repository layer.
     /// </summary>
     /// <param name="request">Payload containing the ligthmeter details.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>    
     /// <returns>A <see cref="ResultDto{T}"/> indicating the operation result.</returns>
     [HttpPost]
     [Produces(MediaTypeNames.Application.Json)]
@@ -66,6 +67,7 @@ public class LigtherMetricsController(ILoggerFactory loggerFactory, ILigtherMetr
     /// Retrieves a ligthmeter by id.
     /// </summary>
     /// <param name="id">Ligthmeter id.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>    
     /// <returns>A <see cref="ResultDto{T}"/> containing the ligthmeter.</returns>
     [HttpGet("{id:long}")]
     [Produces(MediaTypeNames.Application.Json)]

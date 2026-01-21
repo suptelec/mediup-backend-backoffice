@@ -1,5 +1,4 @@
 ﻿using MediUp.Domain.Enums;
-using System.Collections.Generic;
 
 namespace MediUp.Domain.Entities;
 public class LigtherTransformer: BaseEntity
@@ -18,5 +17,6 @@ public class LigtherTransformer: BaseEntity
     public double PrimaryVoltage { get; set; }
     public double SecondaryVoltage { get; set; }
     public long ElectricCompanyId { get; set; }
+    public string? UrlCertificate { get; set; }
     public virtual ICollection<LigtherTransformerMetric> LigtherTransformerMetrics { get; set; } = new List<LigtherTransformerMetric>();
 }

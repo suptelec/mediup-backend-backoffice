@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MediUp.Domain.Entities;
+﻿namespace MediUp.Domain.Entities;
 
 public class EnergyMeasurementEvent : BaseEntity
 {

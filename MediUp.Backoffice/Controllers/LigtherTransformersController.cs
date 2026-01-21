@@ -13,6 +13,7 @@ public class LigtherTransformersController(ILoggerFactory loggerFactory, ILigthe
     /// Creates a new transformer by delegating work to the service and repository layer.
     /// </summary>
     /// <param name="request">Payload containing the transformer details.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>    
     /// <returns>A <see cref="ResultDto{T}"/> indicating the operation result.</returns>
     [HttpPost]
     [Produces(MediaTypeNames.Application.Json)]
@@ -66,6 +67,7 @@ public class LigtherTransformersController(ILoggerFactory loggerFactory, ILigthe
     /// Retrieves a transformer by id.
     /// </summary>
     /// <param name="id">Transformer id.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>    
     /// <returns>A <see cref="ResultDto{T}"/> containing the transformer.</returns>
     [HttpGet("{id:long}")]
     [Produces(MediaTypeNames.Application.Json)]

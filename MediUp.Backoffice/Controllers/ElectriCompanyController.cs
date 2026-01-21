@@ -16,14 +16,15 @@ public class ElectriCompanyController(ILoggerFactory loggerFactory, IElectriComp
     /// </summary>
     /// <param name="request">Payload containing the electric company details.</param>
     /// <returns>A <see cref="ResultDto{T}"/> indicating the operation result.</returns>
+    /// <param name="cancellationToken">Cancellation token.</param>    
     /// <remarks>
     /// This endpoint logs the flow so we can trace the request through the controller.
     /// It also keeps the controller thin by delegating validation and persistence to the service layer.
     /// </remarks>
     [HttpPost]
     [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(typeof(ResultDto<ElectriCompany>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResultDto<ElectriCompany>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResultDto<ElectriCompanyResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResultDto<ElectriCompanyResponse>), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync([FromBody] CreateElectriCompanyRequest request, CancellationToken cancellationToken = default)
     {
         Logger.LogInformation("Request received to create electric company with tax id {TaxId}.", request.TaxId);
