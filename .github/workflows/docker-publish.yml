@@ -1,0 +1,68 @@
+name: Build & Push Identity to GHCR + Deploy Render
+
+on:
+  push:
+    branches: ["main"]
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set version variables
+        run: |
+          echo "SHA_TAG=sha-${GITHUB_SHA}" >> $GITHUB_ENV
+          echo "DATE_TAG=$(date -u +'%Y%m%d-%H%M')" >> $GITHUB_ENV
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image (latest + sha + date)
+        run: |
+          IMAGE="ghcr.io/${{ github.repository }}/mediup-backend-backoffice"
+          docker build \
+            -t ${IMAGE}:latest \
+            -t ${IMAGE}:${SHA_TAG} \
+            -t ${IMAGE}:${DATE_TAG} \
+            .
+        
+      - name: Tag image with git tag (only on release tags)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          IMAGE="ghcr.io/${{ github.repository }}/mediup-backend-backoffice"
+          VERSION="${GITHUB_REF_NAME}"   # e.g. v1.2.3
+          docker tag ${IMAGE}:latest ${IMAGE}:${VERSION}
+
+      - name: Push image (latest + sha + date)
+        run: |
+          IMAGE="ghcr.io/${{ github.repository }}/mediup-backend-backoffice"
+          docker push ${IMAGE}:latest
+          docker push ${IMAGE}:${SHA_TAG}
+          docker push ${IMAGE}:${DATE_TAG}
+
+      - name: Push release tag (only on release tags)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          IMAGE="ghcr.io/${{ github.repository }}/mediup-backend-backoffice"
+          VERSION="${GITHUB_REF_NAME}"
+          docker push ${IMAGE}:${VERSION}
+
+    #   - name: Trigger Render Deploy Hook
+    #     if: github.ref == 'refs/heads/main'
+    #     env:
+    #       RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+    #     run: |
+    #       curl -fsS -X POST "$RENDER_DEPLOY_HOOK"
