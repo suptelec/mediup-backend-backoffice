@@ -27,6 +27,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<LigtherMetric> LigtherMetric => Set<LigtherMetric>();
     public DbSet<LigtherTransformerMetric> LigtherTransformerMetrics => Set<LigtherTransformerMetric>();
     public DbSet<SystemLigther> SystemLigthers => Set<SystemLigther>();
+    public DbSet<LigtherMetricStatusHistory> LigtherMetricStatusHistories => Set<LigtherMetricStatusHistory>();
 
 
     #endregion
