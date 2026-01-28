@@ -23,6 +23,7 @@ public class MappingProfile : Profile
         CreateMap<LigtherTransformer, LigtherTransformerResponse>().ReverseMap();
         CreateMap<CreateLigtherMetricRequest, LigtherMetric>().ReverseMap();
         CreateMap<LigtherMetric, LigtherMetricResponse>().ReverseMap();
+        CreateMap<LigtherMetricStatusHistory, LigtherMetricStatusHistoryResponse>().ReverseMap();
     }
 
 }

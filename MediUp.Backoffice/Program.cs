@@ -88,7 +88,8 @@ try
     builder.Services.AddElectriCompanyService()
         .AddAgentService()
         .AddLigtherTransformerService()
-        .AddLigtherMetricService();
+        .AddLigtherMetricService()
+        .AddLigtherMetricStatusHistoryService();
 
 
 

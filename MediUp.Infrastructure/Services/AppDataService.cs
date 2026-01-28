@@ -17,6 +17,7 @@ public class AppDataService(AppDbContext dbContext) : IAppDataService, IDisposab
     public IElectriCompanyRepository ElectriCompany { get; } = new ElectriCompanyRepository(dbContext);
     public ILigtherTransformerRepository LigtherTransformer { get; } = new LigtherTransformerRepository(dbContext);
     public ILigtherMetricRepository LigtherMetric { get; } = new LigtherMetricRepository(dbContext);
+    public ILigtherMetricStatusHistoryRepository LigtherMetricStatusHistory { get; } = new LigtherMetricStatusHistoryRepository(dbContext);
 
 
 
