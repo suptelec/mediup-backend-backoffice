@@ -4,6 +4,7 @@ using MediUp.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediUp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260128155733_DELETE-RealtionMedidoresCompany")]
+    partial class DELETERealtionMedidoresCompany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,6 +307,9 @@ namespace MediUp.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<long?>("ElectriCompanyId")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("IsPrincipal")
                         .HasColumnType("tinyint(1)");
 
@@ -362,6 +368,8 @@ namespace MediUp.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ElectriCompanyId");
 
                     b.HasIndex("SystemLigtherId");
 
@@ -625,6 +633,10 @@ namespace MediUp.Infrastructure.Migrations
 
             modelBuilder.Entity("MediUp.Domain.Entities.LigtherMetric", b =>
                 {
+                    b.HasOne("MediUp.Domain.Entities.ElectriCompany", null)
+                        .WithMany("MupLigthermetrics")
+                        .HasForeignKey("ElectriCompanyId");
+
                     b.HasOne("MediUp.Domain.Entities.SystemLigther", "SystemLigther")
                         .WithMany("LigtherMetrics")
                         .HasForeignKey("SystemLigtherId");
@@ -674,6 +686,8 @@ namespace MediUp.Infrastructure.Migrations
             modelBuilder.Entity("MediUp.Domain.Entities.ElectriCompany", b =>
                 {
                     b.Navigation("Agents");
+
+                    b.Navigation("MupLigthermetrics");
 
                     b.Navigation("SystemLigthers");
                 });

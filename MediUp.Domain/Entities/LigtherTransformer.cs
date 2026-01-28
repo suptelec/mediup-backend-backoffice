@@ -18,5 +18,7 @@ public class LigtherTransformer: BaseEntity
     public double SecondaryVoltage { get; set; }
     public long ElectricCompanyId { get; set; }
     public string? UrlCertificate { get; set; }
+    public long? SystemLigtherId { get; set; }
+    public virtual SystemLigther? SystemLigther { get; set; } = null!;
     public virtual ICollection<LigtherTransformerMetric> LigtherTransformerMetrics { get; set; } = new List<LigtherTransformerMetric>();
 }

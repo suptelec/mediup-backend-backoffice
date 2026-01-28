@@ -11,7 +11,6 @@ public class ElectriCompany : BaseEntity
     public string? PostalCode { get; set; }
     public string? ContactEmail { get; set; }
     public string? ContactPhone { get; set; }
-    public string? AuthorizationDocument { get; set; }
-    public virtual ICollection<LigtherMetric> MupLigthermetrics { get; set; } = new List<LigtherMetric>();
+    public virtual ICollection<SystemLigther> SystemLigthers { get; set; } = new List<SystemLigther>();
     public virtual ICollection<Agent> Agents { get; set; } = new List<Agent>();
 }

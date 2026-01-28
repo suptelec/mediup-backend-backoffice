@@ -44,7 +44,7 @@ public class LigtherMetricService(
         }
 
         bool serialExists = await _appDataService.LigtherMetric.ExistsAsync(metric =>
-            metric.Serial == request.Serial && metric.ElectricCompanyId == request.ElectricCompanyId);
+            metric.Serial == request.Serial && metric.SystemLigther!.ElectricCompanyId == request.ElectricCompanyId);
         if (serialExists)
         {
             _logger.LogWarning(
