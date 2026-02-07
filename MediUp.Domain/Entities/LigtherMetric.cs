@@ -21,6 +21,14 @@ public class LigtherMetric : BaseEntity
     public string? PrincipalCode { get; set; }
     public string? UrlCertificate { get; set; }
     public long? SystemLigtherId { get; set; }
+    public string? IpAddress { get; set; }         
+    public string? Gateway { get; set; }           
+    public string? SubnetMask { get; set; }        
+    public string? MacAddress { get; set; }        
+    public string? TpRatio { get; set; }          
+    public string? TcRatio { get; set; }          
+    public string? BatteryLevelPercent { get; set; } 
+    public string? SwitchLanPort { get; set; }
     public virtual SystemLigther? SystemLigther { get; set; } = null!;
     public virtual ICollection<LigtherTransformerMetric> LigtherTransformerMetrics { get; set; } = new List<LigtherTransformerMetric>();
 }
