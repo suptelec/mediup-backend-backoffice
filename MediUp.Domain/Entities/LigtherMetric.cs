@@ -3,12 +3,14 @@ public class LigtherMetric : BaseEntity
 {
     public string Serial { get; set; } = null!;
     public string Codigo { get; set; } = null!;
+    public string TPLCode { get; set; } = null!;
     public string? Model { get; set; }
     public string? Brand { get; set; }
     public string? Class { get; set; }
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
     public int ManufacturingYear { get; set; }
+    public string NetworkType { get; set; } = string.Empty;
     public string Province { get; set; } = string.Empty;
     public string Sector { get; set; } = string.Empty;
     public DateTime? LastCalibrationDate { get; set; }
