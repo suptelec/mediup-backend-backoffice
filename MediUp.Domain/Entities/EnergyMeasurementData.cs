@@ -28,6 +28,8 @@ public class EnergyMeasurementData : BaseEntity
 
     public decimal Frequency { get; set; }
 
+    public decimal AveragePowerFactor { get; set; }
+
     public long EnergyMeasurementDownloadId { get; set; }
 
     public virtual EnergyMeasurementDownload EnergyMeasurementDownload { get; set; } = null!;
