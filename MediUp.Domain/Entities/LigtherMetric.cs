@@ -31,6 +31,7 @@ public class LigtherMetric : BaseEntity
     public string? TcRatio { get; set; }          
     public string? BatteryLevelPercent { get; set; } 
     public string? SwitchLanPort { get; set; }
+    public string? InstallationLocation { get; set; }
     public virtual SystemLigther? SystemLigther { get; set; } = null!;
     public virtual ICollection<LigtherTransformerMetric> LigtherTransformerMetrics { get; set; } = new List<LigtherTransformerMetric>();
 }

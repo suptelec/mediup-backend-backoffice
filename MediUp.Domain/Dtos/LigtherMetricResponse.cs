@@ -24,6 +24,7 @@ public class LigtherMetricResponse
     public bool IsPrincipal { get; set; }
     public string? PrincipalCode { get; set; }
     public string? UrlCertificate { get; set; }
+    public string? InstallationLocation { get; set; }
 
 
 }
