@@ -4,6 +4,7 @@ public class LigtherMetric : BaseEntity
     public string Serial { get; set; } = null!;
     public string Codigo { get; set; } = null!;
     public string TPLCode { get; set; } = null!;
+    public string CENACECode { get; set; } = null!;
     public string? Model { get; set; }
     public string? Brand { get; set; }
     public string? Class { get; set; }
