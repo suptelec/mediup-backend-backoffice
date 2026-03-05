@@ -29,6 +29,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<SystemLigther> SystemLigthers => Set<SystemLigther>();
     public DbSet<LigtherMetricStatusHistory> LigtherMetricStatusHistories => Set<LigtherMetricStatusHistory>();
     public DbSet<MaintenanceFilesHistory> MaintenanceFilesHistories => Set<MaintenanceFilesHistory>();
+    public DbSet<Logbook> Logbooks => Set<Logbook>();
+    public DbSet<LogbookDetail> LogbookDetails => Set<LogbookDetail>();
+
 
 
     #endregion
