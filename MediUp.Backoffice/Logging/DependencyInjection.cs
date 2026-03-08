@@ -57,6 +57,7 @@ public static class DependencyInjection
 
         if (observabilitySettings != null)
         {
+
             loggerConfiguration.WriteTo.GrafanaLoki(
                 observabilitySettings.LokiEndpoint,
                 credentials: new LokiCredentials
