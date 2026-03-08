@@ -10,12 +10,23 @@ using MediUp.Domain.Models;
 using MediUp.Infrastructure;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.OData;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Serilog;
 
 bool logToFiles = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") != "true";
 string? logsPath = logToFiles ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs") : null;
 
-Log.Logger = Logging.DependencyInjection.CreateBootstrapperLogger(new ToLog(typeof(Program)), logsPath);
+var observabilityConfig = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: true)
+    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+    .AddEnvironmentVariables()
+    .Build()
+    .GetSection(nameof(ObservabilitySettings))
+    .Get<ObservabilitySettings>();
+
+Log.Logger = Logging.DependencyInjection.CreateBootstrapperLogger(observabilityConfig,new ToLog(typeof(Program)), logsPath);
 try
 {
     Log.Information("Creating builder...");
@@ -56,7 +67,7 @@ try
         .Where(log => !excludedKeyWords.Any(keyword => log.Source?.Contains(keyword) ?? false))
         .ToArray();
 
-    builder.Host.ConfigureAppLogging(logsPath, false, logs: logs);
+    builder.Host.ConfigureAppLogging(observabilityConfig,logsPath, false, logs: logs);
     builder.Services.AddControllers()
         .AddOData(opt =>
         {
@@ -98,6 +109,24 @@ try
 
     #endregion
 
+    builder.Services.AddOpenTelemetry()
+                    .ConfigureResource(resource => resource
+                        .AddService(observabilityConfig.ServiceName))
+                    .WithTracing(tracing => tracing
+                        .AddAspNetCoreInstrumentation(options =>
+                        {
+                            options.Filter = httpContext =>
+                                !httpContext.Request.Path.StartsWithSegments("/metrics") &&
+                                !httpContext.Request.Path.StartsWithSegments("/healthchecks");
+                        })
+                        .AddHttpClientInstrumentation()
+                        .AddEntityFrameworkCoreInstrumentation()
+                        .AddOtlpExporter(o => o.Endpoint = new Uri(observabilityConfig.JaegerEndpoint)))
+                    .WithMetrics(metrics => metrics
+                        .AddAspNetCoreInstrumentation()
+                        .AddHttpClientInstrumentation()
+                        .AddPrometheusExporter());
+
 
     Log.Information("Building app...");
     var app = builder.Build();
@@ -125,6 +154,7 @@ try
 
     app.UseCors(options => options.WithOrigins(settings.BaseDomain).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
+    app.MapPrometheusScrapingEndpoint();
     app.UseHealthChecks("/healthchecks");
 
     app.UseMiddleware<ExceptionHandlerMiddleware>();

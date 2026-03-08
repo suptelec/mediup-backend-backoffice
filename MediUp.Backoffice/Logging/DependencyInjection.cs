@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using MediUp.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -11,9 +6,15 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Filters;
 using Serilog.Formatting.Json;
+using Serilog.Sinks.Grafana.Loki;
 using System;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Logging;
 
@@ -41,14 +42,31 @@ public static class DependencyInjection
         }
     }
 
-    public static Serilog.ILogger CreateBootstrapperLogger(ToLog? log = null, string? logsPath = null)
+    public static Serilog.ILogger CreateBootstrapperLogger(ObservabilitySettings? observabilitySettings = null, ToLog? log = null, string? logsPath = null)
     {
         if (!string.IsNullOrWhiteSpace(logsPath))
         {
             TryCreateLogFolder(logsPath);
         }
 
-        LoggerConfiguration loggerConfiguration = new LoggerConfiguration().Enrich.WithThreadId().Enrich.FromLogContext().WriteTo.Debug(LogEventLevel.Verbose, "{Timestamp:dd-MM-yyyy HH:mm:ss.fff} ({ThreadId}) [{Level}] {Message:lj}{NewLine}{Exception}").WriteTo.Console(new JsonFormatter());
+        LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
+            .Enrich.WithThreadId()
+            .Enrich.FromLogContext().WriteTo
+            .Debug(LogEventLevel.Verbose, "{Timestamp:dd-MM-yyyy HH:mm:ss.fff} ({ThreadId}) [{Level}] {Message:lj}{NewLine}{Exception}").WriteTo
+            .Console(new JsonFormatter());
+
+        if (observabilitySettings != null)
+        {
+            loggerConfiguration.WriteTo.GrafanaLoki(
+                observabilitySettings.LokiEndpoint,
+                labels: new[]
+                {
+                new LokiLabel { Key = "app", Value = observabilitySettings.ServiceName },
+                new LokiLabel { Key = "env", Value = observabilitySettings.Environment }
+                });
+        }
+
+
         if (!string.IsNullOrWhiteSpace(logsPath) && log != null)
         {
             loggerConfiguration.WriteTo.File(Path.Combine(logsPath, log.LogFileName), LogEventLevel.Verbose, "{Timestamp:dd-MM-yyyy HH:mm:ss.fff} ({ThreadId}) [{Level}] {Message:lj}{NewLine}{Exception}", null, 10000000L, null, buffered: false, shared: false, null, RollingInterval.Day, rollOnFileSizeLimit: true, 31);
@@ -57,7 +75,7 @@ public static class DependencyInjection
         return loggerConfiguration.CreateBootstrapLogger();
     }
 
-    public static IHostBuilder ConfigureAppLogging(this IHostBuilder builder, string? logsPath = null, bool useJsonFormatOnFiles = false, bool useJsonFormatOnConsole = false, params ToLog[] logs)
+    public static IHostBuilder ConfigureAppLogging(this IHostBuilder builder, ObservabilitySettings? observabilitySettings = null, string? logsPath = null, bool useJsonFormatOnFiles = false, bool useJsonFormatOnConsole = false, params ToLog[] logs)
     {
         string logsPath2 = logsPath;
         ToLog[] logs2 = logs;
@@ -70,7 +88,7 @@ public static class DependencyInjection
         return builder.UseSerilog(delegate (HostBuilderContext context, IServiceProvider provider, LoggerConfiguration config)
         {
             SetDefaultConfig(config, provider, context.Configuration);
-            ConfigureLogs(config, useJsonFormatOnFiles, useJsonFormatOnConsole, logToFile, logsPath2, logs2);
+            ConfigureLogs(config, useJsonFormatOnFiles, useJsonFormatOnConsole, logToFile, logsPath2,observabilitySettings, logs2);
         }, preserveStaticLogger: true);
     }
 
@@ -84,7 +102,7 @@ public static class DependencyInjection
 
         LoggerConfiguration loggerConfiguration = new LoggerConfiguration();
         SetDefaultConfig(loggerConfiguration);
-        ConfigureLogs(loggerConfiguration, useJsonFormatOnFiles, useJsonFormatOnConsole, flag, logsPath, logs);
+        ConfigureLogs(loggerConfiguration, useJsonFormatOnFiles, useJsonFormatOnConsole, flag, logsPath, null,logs);
         return loggingBuilder.AddSerilog(loggerConfiguration.CreateLogger());
     }
 
@@ -98,7 +116,7 @@ public static class DependencyInjection
 
         LoggerConfiguration loggerConfiguration = new LoggerConfiguration();
         SetDefaultConfig(loggerConfiguration, null, configuration);
-        ConfigureLogs(loggerConfiguration, useJsonFormatOnFiles, useJsonFormatOnConsole, flag, logsPath, logs);
+        ConfigureLogs(loggerConfiguration, useJsonFormatOnFiles, useJsonFormatOnConsole, flag, logsPath, null,logs);
         return loggingBuilder.AddSerilog(loggerConfiguration.CreateLogger());
     }
 
@@ -116,7 +134,7 @@ public static class DependencyInjection
         }
     }
 
-    private static void ConfigureLogs(LoggerConfiguration config, bool useJsonFormatOnFiles, bool useJsonFormatOnConsole, bool logToFile, string? logsPath, params ToLog[] logs)
+    private static void ConfigureLogs(LoggerConfiguration config, bool useJsonFormatOnFiles, bool useJsonFormatOnConsole, bool logToFile, string? logsPath, ObservabilitySettings? observabilitySettings, params ToLog[] logs)
     {
         string logsPath2 = logsPath;
         foreach (ToLog log in logs)
@@ -146,7 +164,20 @@ public static class DependencyInjection
                         loggerConfiguration.WriteTo.File(Path.Combine(logsPath2, filename), LogEventLevel.Verbose, "{Timestamp:dd-MM-yyyy HH:mm:ss.fff} ({ThreadId}) [{Level}] {Message:lj}{NewLine}{Exception}", null, 10000000L, null, buffered: false, shared: false, null, RollingInterval.Day, rollOnFileSizeLimit: true, 31);
                     }
                 }
+
+                if (observabilitySettings != null)
+                {
+
+                    loggerConfiguration.WriteTo.GrafanaLoki("http://localhost:3100",
+                        labels: new[]
+                        {
+                        new LokiLabel { Key = "app", Value = observabilitySettings.ServiceName },
+                        new LokiLabel { Key = "env", Value = observabilitySettings.Environment }
+                        },
+                    restrictedToMinimumLevel: LogEventLevel.Information);
+                }
             });
+
         }
     }
 }

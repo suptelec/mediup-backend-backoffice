@@ -31,6 +31,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<MaintenanceFilesHistory> MaintenanceFilesHistories => Set<MaintenanceFilesHistory>();
     public DbSet<Logbook> Logbooks => Set<Logbook>();
     public DbSet<LogbookDetail> LogbookDetails => Set<LogbookDetail>();
+    public DbSet<CenaceMeasurement> CenaceMeasurements => Set<CenaceMeasurement>();
+    public DbSet<CenaceMeasurementDetail> CenaceMeasurementDetails => Set<CenaceMeasurementDetail>();
 
 
 
