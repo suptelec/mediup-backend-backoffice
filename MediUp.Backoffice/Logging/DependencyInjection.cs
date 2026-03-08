@@ -59,6 +59,11 @@ public static class DependencyInjection
         {
             loggerConfiguration.WriteTo.GrafanaLoki(
                 observabilitySettings.LokiEndpoint,
+                credentials: new LokiCredentials
+                {
+                    Login = observabilitySettings.LokiUser,
+                    Password = observabilitySettings.LokiApiKey
+                }, 
                 labels: new[]
                 {
                 new LokiLabel { Key = "app", Value = observabilitySettings.ServiceName },
@@ -88,7 +93,7 @@ public static class DependencyInjection
         return builder.UseSerilog(delegate (HostBuilderContext context, IServiceProvider provider, LoggerConfiguration config)
         {
             SetDefaultConfig(config, provider, context.Configuration);
-            ConfigureLogs(config, useJsonFormatOnFiles, useJsonFormatOnConsole, logToFile, logsPath2,observabilitySettings, logs2);
+            ConfigureLogs(config, useJsonFormatOnFiles, useJsonFormatOnConsole, logToFile, logsPath2, observabilitySettings, logs2);
         }, preserveStaticLogger: true);
     }
 
@@ -102,7 +107,7 @@ public static class DependencyInjection
 
         LoggerConfiguration loggerConfiguration = new LoggerConfiguration();
         SetDefaultConfig(loggerConfiguration);
-        ConfigureLogs(loggerConfiguration, useJsonFormatOnFiles, useJsonFormatOnConsole, flag, logsPath, null,logs);
+        ConfigureLogs(loggerConfiguration, useJsonFormatOnFiles, useJsonFormatOnConsole, flag, logsPath, null, logs);
         return loggingBuilder.AddSerilog(loggerConfiguration.CreateLogger());
     }
 
@@ -116,7 +121,7 @@ public static class DependencyInjection
 
         LoggerConfiguration loggerConfiguration = new LoggerConfiguration();
         SetDefaultConfig(loggerConfiguration, null, configuration);
-        ConfigureLogs(loggerConfiguration, useJsonFormatOnFiles, useJsonFormatOnConsole, flag, logsPath, null,logs);
+        ConfigureLogs(loggerConfiguration, useJsonFormatOnFiles, useJsonFormatOnConsole, flag, logsPath, null, logs);
         return loggingBuilder.AddSerilog(loggerConfiguration.CreateLogger());
     }
 

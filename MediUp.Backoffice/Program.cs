@@ -19,6 +19,7 @@ bool logToFiles = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINE
 string? logsPath = logToFiles ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs") : null;
 
 var observabilityConfig = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: true)
     .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
     .AddEnvironmentVariables()
@@ -111,7 +112,7 @@ try
 
     builder.Services.AddOpenTelemetry()
                     .ConfigureResource(resource => resource
-                        .AddService(observabilityConfig.ServiceName))
+                        .AddService(observabilityConfig!.ServiceName))
                     .WithTracing(tracing => tracing
                         .AddAspNetCoreInstrumentation(options =>
                         {
@@ -121,7 +122,13 @@ try
                         })
                         .AddHttpClientInstrumentation()
                         .AddEntityFrameworkCoreInstrumentation()
-                        .AddOtlpExporter(o => o.Endpoint = new Uri(observabilityConfig.JaegerEndpoint)))
+                        .AddOtlpExporter(o => 
+                        { 
+                            o.Endpoint = new Uri(observabilityConfig!.JaegerEndpoint);
+                            o.Headers = observabilityConfig.OtlpHeaders;
+
+
+                        }))
                     .WithMetrics(metrics => metrics
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
