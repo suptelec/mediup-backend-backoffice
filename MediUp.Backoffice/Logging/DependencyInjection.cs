@@ -1,20 +1,9 @@
 ﻿using MediUp.Domain.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Serilog.Filters;
 using Serilog.Formatting.Json;
 using Serilog.Sinks.Grafana.Loki;
-using System;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logging;
 

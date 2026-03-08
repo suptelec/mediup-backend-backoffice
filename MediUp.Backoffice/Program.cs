@@ -14,8 +14,6 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
-using Serilog.Debugging;
-using Serilog.Sinks.Grafana.Loki;
 
 bool logToFiles = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") != "true";
 string? logsPath = logToFiles ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs") : null;
@@ -30,33 +28,6 @@ var observabilityConfig = new ConfigurationBuilder()
     .Get<ObservabilitySettings>()!;
 
 observabilityConfig.CheckSettings();
-
-
-SelfLog.Enable(msg => Console.Error.WriteLine($"[SERILOG-SELFLOG] {msg}"));
-
-var testLogger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .WriteTo.Console()
-    .WriteTo.GrafanaLoki(
-        observabilityConfig.LokiEndpoint,
-        credentials: new LokiCredentials
-        {
-            Login = observabilityConfig.LokiUser,
-            Password = observabilityConfig.LokiApiKey
-        },
-        labels: new[]
-        {
-            new LokiLabel { Key = "service", Value = "backoffice-backend" },
-            new LokiLabel { Key = "env", Value = "production" }
-        })
-    .CreateLogger();
-
-testLogger.Information("BACKOFFICE_DIRECT_GRAFANA_TEST");
-testLogger.Information("BACKOFFICE_DIRECT_GRAFANA_TEST_2");
-
-Thread.Sleep(5000);
-
-testLogger.Dispose();
 
 Log.Logger = Logging.DependencyInjection.CreateBootstrapperLogger(observabilityConfig,new ToLog(typeof(Program)), logsPath);
 
