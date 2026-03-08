@@ -25,11 +25,17 @@ var observabilityConfig = new ConfigurationBuilder()
     .AddEnvironmentVariables()
     .Build()
     .GetSection(nameof(ObservabilitySettings))
-    .Get<ObservabilitySettings>();
+    .Get<ObservabilitySettings>()!;
 
 Log.Logger = Logging.DependencyInjection.CreateBootstrapperLogger(observabilityConfig,new ToLog(typeof(Program)), logsPath);
+
 try
 {
+    Log.Information("Observability env={Environment} service={ServiceName} loki={LokiEndpoint}",
+    observabilityConfig.Environment,
+    observabilityConfig.ServiceName,
+    observabilityConfig.LokiEndpoint);
+
     Log.Information("Creating builder...");
     var builder = WebApplication.CreateBuilder(args);
 
