@@ -56,7 +56,7 @@ public static class DependencyInjection
                 }, 
                 labels: new[]
                 {
-                new LokiLabel { Key = "app", Value = observabilitySettings.ServiceName },
+                new LokiLabel { Key = "service", Value = observabilitySettings.ServiceName },
                 new LokiLabel { Key = "env", Value = observabilitySettings.Environment }
                 });
         }
@@ -163,13 +163,20 @@ public static class DependencyInjection
                 if (observabilitySettings != null)
                 {
 
-                    loggerConfiguration.WriteTo.GrafanaLoki("http://localhost:3100",
-                        labels: new[]
-                        {
-                        new LokiLabel { Key = "app", Value = observabilitySettings.ServiceName },
+                    loggerConfiguration.WriteTo.GrafanaLoki(
+                       observabilitySettings.LokiEndpoint,
+                       credentials: new LokiCredentials
+                       {
+                           Login = observabilitySettings.LokiUser,
+                           Password = observabilitySettings.LokiApiKey
+                       },
+                       labels: new[]
+                       {
+                        new LokiLabel { Key = "service", Value = observabilitySettings.ServiceName },
                         new LokiLabel { Key = "env", Value = observabilitySettings.Environment }
-                        },
-                    restrictedToMinimumLevel: LogEventLevel.Information);
+                       },
+                       restrictedToMinimumLevel: LogEventLevel.Information
+                   );
                 }
             });
 
