@@ -28,6 +28,8 @@ var observabilityConfig = new ConfigurationBuilder()
     .GetSection(nameof(ObservabilitySettings))
     .Get<ObservabilitySettings>()!;
 
+observabilityConfig.CheckSettings();
+
 
 var testLogger = new LoggerConfiguration()
     .MinimumLevel.Information()
