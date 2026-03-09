@@ -29,7 +29,7 @@ var observabilityConfig = new ConfigurationBuilder()
 
 observabilityConfig.CheckSettings();
 
-Log.Logger = Logging.DependencyInjection.CreateBootstrapperLogger(observabilityConfig,new ToLog(typeof(Program)), logsPath);
+Log.Logger = Logging.DependencyInjection.CreateBootstrapperLogger(observabilityConfig, new ToLog(typeof(Program)), logsPath);
 
 try
 {
@@ -44,13 +44,13 @@ try
     builder.Services.Configure<MailOptions>(builder.Configuration.GetSection(nameof(MailOptions)));
     var swaggerSettings = builder.Configuration.GetSection(nameof(IdentityServerSettings)).Get<IdentityServerSettings>()!;
     var authServerSettings = builder.Configuration.GetSection(nameof(AuthServerSettings)).Get<AuthServerSettings>()!;
-    
+
 
     var appAssets = new AppAssets(builder.Environment.WebRootPath);
     IServiceCollection services = builder.Services;
 
     services.AddSingleton(appAssets);
-    
+
     #region Services
     // Add services to the container.
     Log.Information("Configuring services...");
@@ -74,7 +74,7 @@ try
         .Where(log => !excludedKeyWords.Any(keyword => log.Source?.Contains(keyword) ?? false))
         .ToArray();
 
-    builder.Host.ConfigureAppLogging(observabilityConfig,logsPath, false, logs: logs);
+    builder.Host.ConfigureAppLogging(observabilityConfig, logsPath, false, logs: logs);
     builder.Services.AddControllers()
         .AddOData(opt =>
         {
@@ -169,7 +169,7 @@ try
 
     app.UseCors(options => options.WithOrigins(settings.BaseDomain).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
-    app.MapPrometheusScrapingEndpoint();
+
     app.UseHealthChecks("/healthchecks");
 
     app.UseMiddleware<ExceptionHandlerMiddleware>();
