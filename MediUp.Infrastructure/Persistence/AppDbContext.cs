@@ -33,6 +33,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<LogbookDetail> LogbookDetails => Set<LogbookDetail>();
     public DbSet<CenaceMeasurement> CenaceMeasurements => Set<CenaceMeasurement>();
     public DbSet<CenaceMeasurementDetail> CenaceMeasurementDetails => Set<CenaceMeasurementDetail>();
+    public DbSet<MeasurementSystemMaintenanceSchedule> MeasurementSystemMaintenanceSchedules => Set<MeasurementSystemMaintenanceSchedule>();
 
 
 

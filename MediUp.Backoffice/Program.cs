@@ -36,7 +36,6 @@ try
     Log.Information("Creating builder...");
     Log.Information(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "NO_ENVIRONMENT");
 
-    Log.Information("Creating builder...");
     var builder = WebApplication.CreateBuilder(args);
 
     var settings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>()!;
@@ -128,11 +127,11 @@ try
                         })
                         .AddHttpClientInstrumentation()
                         .AddEntityFrameworkCoreInstrumentation()
-                         .AddOtlpExporter(o =>
-                         {
-                             o.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.HttpProtobuf;
-                             o.TimeoutMilliseconds = 5000;
-                         }))
+                        .AddOtlpExporter(o =>
+                        {
+                            o.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.HttpProtobuf;
+                            o.TimeoutMilliseconds = 5000;
+                        }))
                     .WithMetrics(metrics => metrics
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()

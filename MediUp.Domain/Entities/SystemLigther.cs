@@ -10,5 +10,6 @@ public class SystemLigther : BaseEntity
     public virtual ElectriCompany ElectricCompany { get; set; } = null!;
     public virtual ICollection<LigtherMetric> LigtherMetrics { get; set; } = new List<LigtherMetric>();
     public virtual ICollection<LigtherTransformer> LigtherTransformers { get; set; } = new List<LigtherTransformer>();
+    public virtual ICollection<MeasurementSystemMaintenanceSchedule> MeasurementSystemMaintenanceSchedules { get; set; } = new List<MeasurementSystemMaintenanceSchedule>();
 }
 
