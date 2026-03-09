@@ -33,10 +33,8 @@ Log.Logger = Logging.DependencyInjection.CreateBootstrapperLogger(observabilityC
 
 try
 {
-    Log.Information("Observability env={Environment} service={ServiceName} loki={LokiEndpoint}",
-    observabilityConfig.Environment,
-    observabilityConfig.ServiceName,
-    observabilityConfig.LokiEndpoint);
+    Log.Information("Creating builder...");
+    Log.Information(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "NO_ENVIRONMENT");
 
     Log.Information("Creating builder...");
     var builder = WebApplication.CreateBuilder(args);
@@ -130,17 +128,19 @@ try
                         })
                         .AddHttpClientInstrumentation()
                         .AddEntityFrameworkCoreInstrumentation()
-                        .AddOtlpExporter(o => 
-                        { 
-                            o.Endpoint = new Uri(observabilityConfig!.JaegerEndpoint);
-                            o.Headers = observabilityConfig.OtlpHeaders;
-
-
-                        }))
+                         .AddOtlpExporter(o =>
+                         {
+                             o.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.HttpProtobuf;
+                             o.TimeoutMilliseconds = 5000;
+                         }))
                     .WithMetrics(metrics => metrics
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
-                        .AddPrometheusExporter());
+                        .AddOtlpExporter(o =>
+                        {
+                            o.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.HttpProtobuf;
+                            o.TimeoutMilliseconds = 5000;
+                        }));
 
 
     Log.Information("Building app...");
