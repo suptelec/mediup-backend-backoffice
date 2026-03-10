@@ -4,6 +4,7 @@ using MediUp.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediUp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260309205147_UpdateEntity-LogbookDetail")]
+    partial class UpdateEntityLogbookDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -661,9 +664,6 @@ namespace MediUp.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<long>("ElectricCompanyId")
-                        .HasColumnType("bigint");
-
                     b.Property<int>("MonthNumber")
                         .HasColumnType("int");
 
@@ -683,8 +683,6 @@ namespace MediUp.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ElectricCompanyId");
 
                     b.ToTable("Logbooks", "mup");
                 });
@@ -712,9 +710,6 @@ namespace MediUp.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<long>("LigtherMetricId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("LogbookId")
                         .HasColumnType("bigint");
 
@@ -723,9 +718,6 @@ namespace MediUp.Infrastructure.Migrations
 
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
-
-                    b.Property<long>("SystemLigtherId")
-                        .HasColumnType("bigint");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -1018,17 +1010,6 @@ namespace MediUp.Infrastructure.Migrations
                     b.Navigation("LigtherTransformer");
                 });
 
-            modelBuilder.Entity("MediUp.Domain.Entities.Logbook", b =>
-                {
-                    b.HasOne("MediUp.Domain.Entities.ElectriCompany", "ElectricCompany")
-                        .WithMany("Logbooks")
-                        .HasForeignKey("ElectricCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ElectricCompany");
-                });
-
             modelBuilder.Entity("MediUp.Domain.Entities.LogbookDetail", b =>
                 {
                     b.HasOne("MediUp.Domain.Entities.Logbook", "Logbook")
@@ -1070,8 +1051,6 @@ namespace MediUp.Infrastructure.Migrations
             modelBuilder.Entity("MediUp.Domain.Entities.ElectriCompany", b =>
                 {
                     b.Navigation("Agents");
-
-                    b.Navigation("Logbooks");
 
                     b.Navigation("SystemLigthers");
                 });
