@@ -14,5 +14,5 @@ public class ElectriCompany : BaseEntity
     public string? ContractNumber { get; set; }
     public virtual ICollection<SystemLigther> SystemLigthers { get; set; } = new List<SystemLigther>();
     public virtual ICollection<Agent> Agents { get; set; } = new List<Agent>();
-    public virtual ICollection<Logbook> Logbooks { get; set; } = new List<Logbook>();
+    public virtual ICollection<LogbookDetail> LogbookDetails { get; set; } = new List<LogbookDetail>();
 }

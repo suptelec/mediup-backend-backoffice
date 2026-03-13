@@ -4,6 +4,7 @@ using MediUp.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediUp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260311163817_UpdateEntity-MeasurementSystemMaintenanceSchedule")]
+    partial class UpdateEntityMeasurementSystemMaintenanceSchedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -649,6 +652,49 @@ namespace MediUp.Infrastructure.Migrations
                     b.ToTable("LigtherTransformerMetrics", "mup");
                 });
 
+            modelBuilder.Entity("MediUp.Domain.Entities.Logbook", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<long>("ElectricCompanyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("MonthNumber")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("PeriodFrom")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("PeriodTo")
+                        .HasColumnType("date");
+
+                    b.Property<int>("ReportNumber")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ElectricCompanyId");
+
+                    b.ToTable("Logbooks", "mup");
+                });
+
             modelBuilder.Entity("MediUp.Domain.Entities.LogbookDetail", b =>
                 {
                     b.Property<long>("Id")
@@ -672,20 +718,14 @@ namespace MediUp.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<long>("ElectricCompanyId")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("LigtherMetricId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("MonthNumber")
-                        .HasColumnType("int");
+                    b.Property<long>("LogbookId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("OccuredAt")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("ReportNumber")
-                        .HasColumnType("int");
 
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
@@ -704,7 +744,7 @@ namespace MediUp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ElectricCompanyId");
+                    b.HasIndex("LogbookId");
 
                     b.ToTable("LogbookDetails", "mup");
                 });
@@ -993,15 +1033,26 @@ namespace MediUp.Infrastructure.Migrations
                     b.Navigation("LigtherTransformer");
                 });
 
-            modelBuilder.Entity("MediUp.Domain.Entities.LogbookDetail", b =>
+            modelBuilder.Entity("MediUp.Domain.Entities.Logbook", b =>
                 {
                     b.HasOne("MediUp.Domain.Entities.ElectriCompany", "ElectricCompany")
-                        .WithMany("LogbookDetails")
+                        .WithMany("Logbooks")
                         .HasForeignKey("ElectricCompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ElectricCompany");
+                });
+
+            modelBuilder.Entity("MediUp.Domain.Entities.LogbookDetail", b =>
+                {
+                    b.HasOne("MediUp.Domain.Entities.Logbook", "Logbook")
+                        .WithMany("LogbookDetails")
+                        .HasForeignKey("LogbookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Logbook");
                 });
 
             modelBuilder.Entity("MediUp.Domain.Entities.MeasurementSystemMaintenanceSchedule", b =>
@@ -1035,7 +1086,7 @@ namespace MediUp.Infrastructure.Migrations
                 {
                     b.Navigation("Agents");
 
-                    b.Navigation("LogbookDetails");
+                    b.Navigation("Logbooks");
 
                     b.Navigation("SystemLigthers");
                 });
@@ -1055,6 +1106,11 @@ namespace MediUp.Infrastructure.Migrations
             modelBuilder.Entity("MediUp.Domain.Entities.LigtherTransformer", b =>
                 {
                     b.Navigation("LigtherTransformerMetrics");
+                });
+
+            modelBuilder.Entity("MediUp.Domain.Entities.Logbook", b =>
+                {
+                    b.Navigation("LogbookDetails");
                 });
 
             modelBuilder.Entity("MediUp.Domain.Entities.SystemLigther", b =>
