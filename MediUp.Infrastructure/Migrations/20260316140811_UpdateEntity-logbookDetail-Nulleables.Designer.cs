@@ -4,6 +4,7 @@ using MediUp.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediUp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260316140811_UpdateEntity-logbookDetail-Nulleables")]
+    partial class UpdateEntitylogbookDetailNulleables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -739,9 +742,6 @@ namespace MediUp.Infrastructure.Migrations
 
                     b.Property<byte[]>("PdfContent")
                         .HasColumnType("longblob");
-
-                    b.Property<string>("ReportData")
-                        .HasColumnType("json");
 
                     b.Property<string>("SystemLigtherName")
                         .IsRequired()

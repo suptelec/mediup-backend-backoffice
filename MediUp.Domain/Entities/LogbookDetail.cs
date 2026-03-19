@@ -5,9 +5,9 @@ public class LogbookDetail: BaseEntity
 {
     public int ReportNumber { get; set; }
     public int MonthNumber { get; set; }
-    public long SystemLigtherId { get; set; }
-    public long LigtherMetricId { get; set; }
-    public string Code { get; set; } = string.Empty;
+    public long? SystemLigtherId { get; set; }
+    public long? LigtherMetricId { get; set; }
+    public string? Code { get; set; }
     public LogbookDetailType Type { get; set; }
     public string Description { get; set; } = string.Empty;
     public int SortOrder { get; set; }

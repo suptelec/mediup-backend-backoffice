@@ -6,8 +6,9 @@ public class MaintenanceFilesHistory: BaseEntity
     public int Year { get; set; }
     public string SystemLigtherName { get; set; } = null!;
     public string HtmlContent { get; set; } = null!;
+    public byte[]? PdfContent { get; set; }
     public string MaintenanceType { get; set; } = null!;
     public string? ElectricCompanyName { get; set; }
-
+    public string? ReportData { get; set; }
 
 }

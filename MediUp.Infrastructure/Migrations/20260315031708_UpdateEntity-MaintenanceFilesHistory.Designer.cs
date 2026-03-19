@@ -4,6 +4,7 @@ using MediUp.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediUp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260315031708_UpdateEntity-MaintenanceFilesHistory")]
+    partial class UpdateEntityMaintenanceFilesHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -658,6 +661,7 @@ namespace MediUp.Infrastructure.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
@@ -674,7 +678,7 @@ namespace MediUp.Infrastructure.Migrations
                     b.Property<long>("ElectricCompanyId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("LigtherMetricId")
+                    b.Property<long>("LigtherMetricId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("MonthNumber")
@@ -689,7 +693,7 @@ namespace MediUp.Infrastructure.Migrations
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
-                    b.Property<long?>("SystemLigtherId")
+                    b.Property<long>("SystemLigtherId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("Type")
@@ -739,9 +743,6 @@ namespace MediUp.Infrastructure.Migrations
 
                     b.Property<byte[]>("PdfContent")
                         .HasColumnType("longblob");
-
-                    b.Property<string>("ReportData")
-                        .HasColumnType("json");
 
                     b.Property<string>("SystemLigtherName")
                         .IsRequired()
