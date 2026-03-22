@@ -4,6 +4,7 @@ using MediUp.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediUp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260320181752_EntityLigtherMetric-AddProperties")]
+    partial class EntityLigtherMetricAddProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,24 +224,19 @@ namespace MediUp.Infrastructure.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<decimal>("ActiveEnergyDeliveredKwh")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("ActiveEnergyReceivedKwh")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("ApparentEnergyDeliveredKvah")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("AveragePowerFactor")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("AverageVoltageKv")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -254,12 +252,10 @@ namespace MediUp.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Frequency")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("IntegrationPeriodSeconds")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("MeasuredAt")
                         .IsRequired()
@@ -272,12 +268,10 @@ namespace MediUp.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("ReactiveEnergyDeliveredKvarh")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("ReactiveEnergyReceivedKvarh")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -386,9 +380,11 @@ namespace MediUp.Infrastructure.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("ActiveMeter")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("ActiveRouter")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Address")
@@ -401,6 +397,7 @@ namespace MediUp.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("CENACECode")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Class")
@@ -433,17 +430,16 @@ namespace MediUp.Infrastructure.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("MacAddress")
                         .HasColumnType("longtext");
 
                     b.Property<string>("MainMeterSeal")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("ManufacturingYear")
@@ -453,15 +449,18 @@ namespace MediUp.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("ModelNumber")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("NetworkType")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime?>("NextCalibrationDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("PartNumber")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("PrincipalCode")
@@ -475,6 +474,7 @@ namespace MediUp.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Sector")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Serial")
@@ -501,18 +501,22 @@ namespace MediUp.Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("TcSecondaryRatio")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("TerminalBlockSealOne")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("TerminalBlockSealTwo")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("TpRatio")
                         .HasColumnType("longtext");
 
                     b.Property<string>("TpSecondaryRatio")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime?>("UpdatedAt")
