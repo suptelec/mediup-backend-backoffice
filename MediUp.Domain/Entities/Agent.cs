@@ -16,4 +16,6 @@ public class Agent : BaseEntity
     public long ElectricCompanyId { get; set; }
 
     public virtual ElectriCompany ElectricCompany { get; set; } = null!;
+    public bool WhatsAppEnabled { get; set; } = false;
+    public string? WhatsAppPhone { get; set; } 
 }
