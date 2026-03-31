@@ -34,6 +34,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, ILogger<AppDbC
     public DbSet<CenaceMeasurementDetail> CenaceMeasurementDetails => Set<CenaceMeasurementDetail>();
     public DbSet<MeasurementSystemMaintenanceSchedule> MeasurementSystemMaintenanceSchedules => Set<MeasurementSystemMaintenanceSchedule>();
     public DbSet<EnergyMeasurementSummary> EnergyMeasurementSummaries => Set<EnergyMeasurementSummary>();
+    public DbSet<VoltageThreshold> VoltageThresholds => Set<VoltageThreshold>();
+    public DbSet<PowerFactorThreshold> PowerFactorThresholds => Set<PowerFactorThreshold>();
 
 
 

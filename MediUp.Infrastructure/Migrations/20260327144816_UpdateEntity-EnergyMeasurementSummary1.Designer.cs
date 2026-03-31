@@ -4,6 +4,7 @@ using MediUp.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediUp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260327144816_UpdateEntity-EnergyMeasurementSummary1")]
+    partial class UpdateEntityEnergyMeasurementSummary1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -408,9 +411,6 @@ namespace MediUp.Infrastructure.Migrations
                     b.Property<long>("IdSystemaMedida")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("IsPrincipal")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
@@ -535,9 +535,6 @@ namespace MediUp.Infrastructure.Migrations
 
                     b.Property<DateTime?>("NextCalibrationDate")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("NominalKv")
-                        .HasColumnType("decimal(5,1)");
 
                     b.Property<string>("PartNumber")
                         .HasColumnType("longtext");
@@ -934,79 +931,6 @@ namespace MediUp.Infrastructure.Migrations
                     b.ToTable("MeasurementSystemMaintenanceSchedules", "mup");
                 });
 
-            modelBuilder.Entity("MediUp.Domain.Entities.PowerFactorThreshold", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Level")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<decimal?>("MaxValue")
-                        .HasColumnType("decimal(4,2)");
-
-                    b.Property<decimal?>("MinValue")
-                        .HasColumnType("decimal(4,2)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PowerFactorThresholds", "mup");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = "System",
-                            Description = "Factor de potencia crítico",
-                            Level = "Critical",
-                            MaxValue = 0.60m
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = "System",
-                            Description = "Bajo - Penalizado",
-                            Level = "Low",
-                            MaxValue = 0.94m,
-                            MinValue = 0.61m
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = "System",
-                            Description = "Normal",
-                            Level = "Normal",
-                            MaxValue = 1.00m,
-                            MinValue = 0.95m
-                        });
-                });
-
             modelBuilder.Entity("MediUp.Domain.Entities.SystemLigther", b =>
                 {
                     b.Property<long>("Id")
@@ -1049,104 +973,6 @@ namespace MediUp.Infrastructure.Migrations
                     b.HasIndex("ElectricCompanyId");
 
                     b.ToTable("SystemLigthers", "mup");
-                });
-
-            modelBuilder.Entity("MediUp.Domain.Entities.VoltageThreshold", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("LowerEmergent")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<decimal>("LowerNormal")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<decimal>("NominalKv")
-                        .HasColumnType("decimal(5,1)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("UpperEmergent")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<decimal>("UpperNormal")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VoltageThresholds", "mup");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = "System",
-                            LowerEmergent = -0.06m,
-                            LowerNormal = -0.05m,
-                            NominalKv = 138m,
-                            UpperEmergent = 0.06m,
-                            UpperNormal = 0.05m
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = "System",
-                            LowerEmergent = -0.05m,
-                            LowerNormal = -0.03m,
-                            NominalKv = 22m,
-                            UpperEmergent = 0.06m,
-                            UpperNormal = 0.04m
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = "System",
-                            LowerEmergent = 0.00m,
-                            LowerNormal = -0.03m,
-                            NominalKv = 6.6m,
-                            UpperEmergent = 0.00m,
-                            UpperNormal = 0.04m
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = "System",
-                            LowerEmergent = -0.06m,
-                            LowerNormal = -0.05m,
-                            NominalKv = 480m,
-                            UpperEmergent = 0.06m,
-                            UpperNormal = 0.05m
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = "System",
-                            LowerEmergent = -0.06m,
-                            LowerNormal = -0.05m,
-                            NominalKv = 220m,
-                            UpperEmergent = 0.06m,
-                            UpperNormal = 0.05m
-                        });
                 });
 
             modelBuilder.Entity("MediUp.Infrastructure.Persistence.Entities.CustomAuditLog", b =>

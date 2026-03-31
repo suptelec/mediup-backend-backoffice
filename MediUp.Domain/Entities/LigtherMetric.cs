@@ -41,7 +41,8 @@ public class LigtherMetric : BaseEntity
     public string? ActiveRouter { get; set; } 
     public string? MainMeterSeal { get; set; }
     public string? TerminalBlockSealOne { get; set; } 
-    public string? TerminalBlockSealTwo { get; set; } 
+    public string? TerminalBlockSealTwo { get; set; }
+    public decimal NominalKv { get; set; }
 
     public virtual SystemLigther? SystemLigther { get; set; } = null!;
     public virtual ICollection<LigtherTransformerMetric> LigtherTransformerMetrics { get; set; } = new List<LigtherTransformerMetric>();

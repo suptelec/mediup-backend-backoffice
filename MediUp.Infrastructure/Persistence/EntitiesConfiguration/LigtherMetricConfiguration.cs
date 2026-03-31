@@ -9,5 +9,7 @@ public class LigtherMetricConfiguration : IEntityTypeConfiguration<LigtherMetric
     {
         builder.Property(x => x.Latitude).HasPrecision(9, 6);
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
+        builder.Property(x => x.NominalKv).HasColumnType("decimal(5,1)");
+
     }
 }

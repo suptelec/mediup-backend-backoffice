@@ -12,4 +12,5 @@ public class EnergyMeasurementSummary : BaseEntity
     public decimal TotalReactiveEnergyDeliveredKvarh { get; set; }
     public decimal TotalReactiveEnergyReceivedKvarh { get; set; }
     public decimal TotalApparentEnergyDeliveredKvah { get; set; }
+    public bool IsPrincipal { get; set; }
 }
